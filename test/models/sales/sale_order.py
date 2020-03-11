@@ -63,6 +63,7 @@ class NoviasSaleOrder(models.Model):
     
     
     
+     
     @api.depends('date_sheddule')
     def _compute_general_status(self):        
         for sale in self:
@@ -92,7 +93,11 @@ class NoviasSaleOrder(models.Model):
                     status = 'empty'
                 else:
                     status = 'ready'
-            sale.write({'status_gen':status})
+            if sale.date_sheddule:
+                sale.statusg = status                    
+                sale.write({'status_gen':status})
+            else:
+                sale.statusg = "none" 
 
                  
 
