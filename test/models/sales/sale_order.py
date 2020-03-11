@@ -99,6 +99,8 @@ class NoviasSaleOrder(models.Model):
             else:
                 sale.statusg = "none" 
 
+                
+
                  
 
 
