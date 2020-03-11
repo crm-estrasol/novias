@@ -270,3 +270,4 @@ class NoviasSaleOrder(models.Model):
         #for field in fields_to_hide:
         #    res[field]['selectable'] = False
         return res
+    #git change
