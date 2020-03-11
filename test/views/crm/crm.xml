@@ -12,7 +12,7 @@
               <field name="order_ids" invisible="1" />
           
               <button class="oe_stat_button" type="object" name="button_open_unique_quot" icon="fa-pencil-square-o" attrs="{'invisible': ['|' , ('type', '=', 'lead'),('order_ids', '=', [] ) ] } ">
-              Ventass          
+              Venta          
           </button>
       </button>
         
