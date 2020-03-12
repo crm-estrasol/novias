@@ -61,8 +61,6 @@ class NoviasSaleOrder(models.Model):
                 record.total_invoiced = 0
                 record.ready_sale = 0
     
-    
-    
      
     @api.depends('date_sheddule')
     def _compute_general_status(self):        
@@ -99,7 +97,25 @@ class NoviasSaleOrder(models.Model):
             else:
                 sale.statusg = "none" 
 
-                
+    @api.depends('order_line.price_total')
+    def _amount_all(self):
+            """
+            Compute the total amounts of the SO.
+            """
+            for order in self:
+                amount_untaxed = amount_tax = 0.0
+                for line in order.order_line:
+                    amount_untaxed += line.price_subtotal
+                    amount_tax += line.price_tax
+                update = {
+                    'amount_untaxed': amount_untaxed,
+                    'amount_tax': amount_tax,
+                    'amount_total': amount_untaxed + amount_tax,
+                }
+               
+                order.update(update)
+                if order.opportunity_id:
+                    order.opportunity_id.planned_revenue = amount_untaxed + amount_tax                
 
                  
 
@@ -146,6 +162,7 @@ class NoviasSaleOrder(models.Model):
     def _onchange_company_id(self):
         if self.company_id:
            pass
+    
     
     #ON BUTTON ACTIONS
     def button_shedule_confirm(self):
