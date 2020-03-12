@@ -40,7 +40,7 @@ class NoviasMailActivity(models.Model):
                     }
     def action_sheddule_scd(self):
             sale = self.env["sale.order"].search([('id','=',self.res_id)])
-            stages = self.env["crm.stage"].search([('name','like','Taller(correcciones)')])
+            stages = self.env["crm.stage"].search([('name','like','Taller(Correcciones)')])
             sale.opportunity_id.stage_id = stages[0].id
             sale.date_workshop = self.date_deadline
             sale.comment_workshop = self.note
