@@ -259,6 +259,7 @@ class NoviasSaleOrder(models.Model):
         now = sales.date_workshop
         today = local.astimezone(user_tz)
         #tomorrow = (now + local.utcoffset(now)).replace(hour=23, minute=59, second=59) - local.utcoffset(now)
+        _logger.info("-----------------------------------"+str( user_tz) )
         _logger.info("-----------------------------------"+str( today) )
         
     def purchase_service_prepare_order_values_n(self, supplierinfo):
