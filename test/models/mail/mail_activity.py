@@ -83,27 +83,8 @@ class NoviasMailActivity(models.Model):
             #            'tag': 'reload',
             #       }
     #ON BUTTON ACTIONS END
-    """
-    def action_done(self):
-        
-        if self.selection_actividades == "var":
-            sale = self.env["sale.order"].search([('id','=',self.res_id)])
-            sale.shedule_confirm = 1    
-            messages, next_activities = self._action_done()
-            return  {
-                        'type': 'ir.actions.client',
-                        'tag': 'reload',
-                    }
-
-        messages, next_activities = self._action_done()
-        return messages.ids and messages.ids[0] or False
-
-    def action_feedback(self, feedback=False, attachment_ids=None):
-            self = self.with_context(clean_context(self.env.context))
-            if self.selection_actividades == "var":
-                sale = self.env["sale.order"].search([('id','=',self.res_id)])
-                sale.shedule_confirm = 1    
-               
-            messages, next_activities = self._action_done(feedback=feedback, attachment_ids=attachment_ids)
-            return messages.ids and messages.ids[0] or False
-    """
+    #ON CHANGE
+    @api.onchange('order_line')
+    def _on_test_date(self):
+      self.date_deadline = self.test_date  
+    #ON CHANGE
