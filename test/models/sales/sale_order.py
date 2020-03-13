@@ -6,6 +6,8 @@ from odoo.tools.misc import clean_context
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
+from datetime import timedelta, datetime
+import pytz
 class NoviasSaleOrder(models.Model):
     _inherit  = "sale.order"
     
@@ -61,8 +63,7 @@ class NoviasSaleOrder(models.Model):
                 record.total_invoiced = 0
                 record.ready_sale = 0
     
-    
-    
+     
     @api.depends('date_sheddule')
     def _compute_general_status(self):        
         for sale in self:
@@ -92,7 +93,31 @@ class NoviasSaleOrder(models.Model):
                     status = 'empty'
                 else:
                     status = 'ready'
-            sale.write({'status_gen':status})
+            if sale.date_sheddule:
+                sale.statusg = status                    
+                sale.write({'status_gen':status})
+            else:
+                sale.statusg = "none" 
+
+    @api.depends('order_line.price_total')
+    def _amount_all(self):
+            """
+            Compute the total amounts of the SO.
+            """
+            for order in self:
+                amount_untaxed = amount_tax = 0.0
+                for line in order.order_line:
+                    amount_untaxed += line.price_subtotal
+                    amount_tax += line.price_tax
+                update = {
+                    'amount_untaxed': amount_untaxed,
+                    'amount_tax': amount_tax,
+                    'amount_total': amount_untaxed + amount_tax,
+                }
+               
+                order.update(update)
+                if order.opportunity_id:
+                    order.opportunity_id.planned_revenue = amount_untaxed + amount_tax                
 
                  
 
@@ -139,6 +164,7 @@ class NoviasSaleOrder(models.Model):
     def _onchange_company_id(self):
         if self.company_id:
            pass
+    
     
     #ON BUTTON ACTIONS
     def button_shedule_confirm(self):
@@ -227,12 +253,14 @@ class NoviasSaleOrder(models.Model):
             same way when we search on partner_id, with the addition of being optimal when having a query that will
             search on partner_id and ref at the same time (which is the case when we open the bank reconciliation widget)
         """
-        #cr = self._cr
-        #cr.execute("SELECT * FROM public.sale_order ")  
-        #po = self.env['purchase.order'].search( [('partner_id','=',3)] )
-        #._cr.dictfetchall()
-        #_logger.info("-----------------------------------"+str(self.env.user.warehouse_id.name ) )
-        
+        #sales = self.env["sale.order"].search( [('id','=','3')]  )
+        #user_tz = self.env.user.tz or pytz.utc.zone
+        #local = pytz.timezone(user_tz)
+        #now = sales.date_workshop
+        #today = now.astimezone(local)
+        #_logger.info("-----------------------------------"+str( today) )
+        #_logger.info("-----------------------------------"+str( today) )
+     
     def purchase_service_prepare_order_values_n(self, supplierinfo):
         """ Returns the values to create the purchase order from the current SO line.
             :param supplierinfo: record of product.supplierinfo
@@ -270,3 +298,11 @@ class NoviasSaleOrder(models.Model):
         #for field in fields_to_hide:
         #    res[field]['selectable'] = False
         return res
+    def cast_date(self,date):
+        user_tz = self.env.user.tz or "Mexico/General"
+        _logger.info("-----------------------------------"+str( user_tz ) )
+        local = pytz.timezone(user_tz)
+        now = date
+        today = now.astimezone(local)
+        
+        return today
