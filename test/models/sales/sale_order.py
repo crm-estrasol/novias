@@ -257,7 +257,7 @@ class NoviasSaleOrder(models.Model):
         user_tz = self.env.user.tz or pytz.utc.zone
         local = pytz.timezone(user_tz)
         now = sales.date_workshop
-        today = local.astimezone(user_tz)
+        today = now.replace(tzinfo=pytz.utc).astimezone(user_tz)
         #tomorrow = (now + local.utcoffset(now)).replace(hour=23, minute=59, second=59) - local.utcoffset(now)
         _logger.info("-----------------------------------"+str( user_tz) )
         _logger.info("-----------------------------------"+str( today) )
