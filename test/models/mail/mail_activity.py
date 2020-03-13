@@ -22,7 +22,7 @@ class NoviasMailActivity(models.Model):
             sale = self.env["sale.order"].search([('id','=',self.res_id)])
             stages = self.env["crm.stage"].search([('name','like','Apartado(Reservado)')])
             
-            sale.date_sheddule = self.date_deadline
+            sale.date_sheddule = self.test_date
             sale.opportunity_id.stage_id = stages[0].id
             self.flagsh_shedule = 0
             #_logger.info("-----------------------------------"+str(self.env.user.warehouse_id.name ) )
@@ -43,7 +43,7 @@ class NoviasMailActivity(models.Model):
             sale = self.env["sale.order"].search([('id','=',self.res_id)])
             stages = self.env["crm.stage"].search([('name','like','Taller(Correcciones)')])
             sale.opportunity_id.stage_id = stages[0].id
-            sale.date_workshop = self.date_deadline
+            sale.date_workshop = self.test_date
             sale.comment_workshop = self.note
             self.flagdeliv_shedule = 0 
             #s
