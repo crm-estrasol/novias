@@ -7,7 +7,8 @@ class NoviasMailActivity(models.Model):
     _inherit = "mail.activity"
     selection_actividades = fields.Selection([('var','Fecha prueba'),('var2','Ajuste taller')],string="Actividad") 
     flagsh_shedule = fields.Boolean() 
-    flagdeliv_shedule = fields.Boolean() 
+    flagdeliv_shedule = fields.Boolean()
+    test_date = fields.Datetime('Fecha prueba',tracking=True) 
     #ON BUTTON ACTIONS
     def action_confirm_sheddule(self):
         sale = self.env["sale.order"].search([('id','=',self.res_id)])
