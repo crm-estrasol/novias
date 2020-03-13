@@ -304,6 +304,5 @@ class NoviasSaleOrder(models.Model):
         local = pytz.timezone(user_tz)
         now = date
         today = now.astimezone(local)
-        _logger.info("-----------------------------------"+str( today) )
-        _logger.info("-----------------------------------"+str( today) )
+        
         return today
