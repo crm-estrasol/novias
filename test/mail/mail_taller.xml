@@ -76,7 +76,7 @@
                     <tr>
                         <td style="padding:15px 20px 10px 20px; font-size:20px;">
                             <p>
-                                Estimado colaborador se le informa que la venta <strong>${object.name}</strong>
+                                Estimado colaborador se le informa que la venta <strong>${object.cast_date(object.date_workshop) }</strong>
                             </p>
                             <p>
                                 Solicita las siguientes correcciones:                              
@@ -106,7 +106,7 @@
         <record id="mail_template_dropshiping" model="mail.template">
             <field name="name">Aviso venta negativo</field>
             <field name="model_id" ref="sale.model_sale_order"/>
-            <field name="subject">Venta negativo-${object.name}-${object.date_workshop}</field>
+            <field name="subject">Venta negativo-${object.name}-${object.cast_date(object.date_sheddule) }</field>
             <field name="email_to"></field>
             <field name="partner_to"></field>
             <field name="body_html" type="html">
@@ -121,7 +121,7 @@
                             <p>
                                 Se genero una orden de compra(si proveedor existe proveedor).                              
                             </p>
-                            <p>Fecha programada para entrega : <strong>${object.event_date}</strong> </p>
+                            <p>Fecha programada para entrega : <strong>${object.cast_date(object.date_sheddule) }</strong> </p>
                             <div style="margin: 16px 0px 16px 0px;">
                             </div>
                         </td>
