@@ -299,7 +299,7 @@ class NoviasSaleOrder(models.Model):
         #    res[field]['selectable'] = False
         return res
     def cast_date(self,date):
-        user_tz = self.env.user.tz or pytz.utc.zone
+        user_tz = self.env.user.tz or "Mexico/General"
         _logger.info("-----------------------------------"+str( user_tz ) )
         local = pytz.timezone(user_tz)
         now = date
