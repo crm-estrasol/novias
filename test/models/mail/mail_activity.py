@@ -7,7 +7,8 @@ class NoviasMailActivity(models.Model):
     _inherit = "mail.activity"
     selection_actividades = fields.Selection([('var','Fecha prueba'),('var2','Ajuste taller')],string="Actividad") 
     flagsh_shedule = fields.Boolean() 
-    flagdeliv_shedule = fields.Boolean() 
+    flagdeliv_shedule = fields.Boolean()
+    test_date = fields.Datetime('Fecha prueba',tracking=True) 
     #ON BUTTON ACTIONS
     def action_confirm_sheddule(self):
         sale = self.env["sale.order"].search([('id','=',self.res_id)])
@@ -21,7 +22,7 @@ class NoviasMailActivity(models.Model):
             sale = self.env["sale.order"].search([('id','=',self.res_id)])
             stages = self.env["crm.stage"].search([('name','like','Apartado(Reservado)')])
             
-            sale.date_sheddule = self.date_deadline
+            sale.date_sheddule = self.test_date
             sale.opportunity_id.stage_id = stages[0].id
             self.flagsh_shedule = 0
             #_logger.info("-----------------------------------"+str(self.env.user.warehouse_id.name ) )
@@ -42,7 +43,7 @@ class NoviasMailActivity(models.Model):
             sale = self.env["sale.order"].search([('id','=',self.res_id)])
             stages = self.env["crm.stage"].search([('name','like','Taller(Correcciones)')])
             sale.opportunity_id.stage_id = stages[0].id
-            sale.date_workshop = self.date_deadline
+            sale.date_workshop = self.test_date
             sale.comment_workshop = self.note
             self.flagdeliv_shedule = 0 
             #s
@@ -82,27 +83,9 @@ class NoviasMailActivity(models.Model):
             #            'tag': 'reload',
             #       }
     #ON BUTTON ACTIONS END
-    """
-    def action_done(self):
-        
-        if self.selection_actividades == "var":
-            sale = self.env["sale.order"].search([('id','=',self.res_id)])
-            sale.shedule_confirm = 1    
-            messages, next_activities = self._action_done()
-            return  {
-                        'type': 'ir.actions.client',
-                        'tag': 'reload',
-                    }
+    #ON CHANGE
+    @api.onchange('test_date')
+    def _on_test_date(self):
+      if self.test_date:
 
-        messages, next_activities = self._action_done()
-        return messages.ids and messages.ids[0] or False
-
-    def action_feedback(self, feedback=False, attachment_ids=None):
-            self = self.with_context(clean_context(self.env.context))
-            if self.selection_actividades == "var":
-                sale = self.env["sale.order"].search([('id','=',self.res_id)])
-                sale.shedule_confirm = 1    
-               
-            messages, next_activities = self._action_done(feedback=feedback, attachment_ids=attachment_ids)
-            return messages.ids and messages.ids[0] or False
-    """
+        self.date_deadline = self.test_date.strftime('%Y-%m-%d')
