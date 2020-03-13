@@ -253,16 +253,14 @@ class NoviasSaleOrder(models.Model):
             same way when we search on partner_id, with the addition of being optimal when having a query that will
             search on partner_id and ref at the same time (which is the case when we open the bank reconciliation widget)
         """
-        sales = self.env["sale.order"].search( [('id','=','3')]  )
-        user_tz = self.env.user.tz or pytz.utc.zone
-        local = pytz.timezone(user_tz)
-        now = sales.date_workshop
-        
-        today = now.astimezone(local)
-        #tomorrow = (now + local.utcoffset(now)).replace(hour=23, minute=59, second=59) - local.utcoffset(now)
-        _logger.info("-----------------------------------"+str( today) )
+        #sales = self.env["sale.order"].search( [('id','=','3')]  )
+        #user_tz = self.env.user.tz or pytz.utc.zone
+        #local = pytz.timezone(user_tz)
+        #now = sales.date_workshop
+        #today = now.astimezone(local)
         #_logger.info("-----------------------------------"+str( today) )
-        
+        #_logger.info("-----------------------------------"+str( today) )
+     
     def purchase_service_prepare_order_values_n(self, supplierinfo):
         """ Returns the values to create the purchase order from the current SO line.
             :param supplierinfo: record of product.supplierinfo
@@ -300,3 +298,11 @@ class NoviasSaleOrder(models.Model):
         #for field in fields_to_hide:
         #    res[field]['selectable'] = False
         return res
+    def cast_date(self,date):
+        user_tz = self.env.user.tz or pytz.utc.zone
+        local = pytz.timezone(user_tz)
+        now = date
+        today = now.astimezone(local)
+        _logger.info("-----------------------------------"+str( today) )
+        _logger.info("-----------------------------------"+str( today) )
+        return today
