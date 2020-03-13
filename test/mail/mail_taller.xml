@@ -84,7 +84,7 @@
                             <p>
                                 
                             </p>
-                            <p>Fecha programada para su prueba : <strong>${object.cast_date(object.date_workshop)}</strong> </p>
+                            <p>Fecha programada para su prueba : <strong>${object.cast_date(object.date_workshop) }</strong> </p>
                             <div style="margin: 16px 0px 16px 0px;">
                             </div>
                         </td>
