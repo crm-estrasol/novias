@@ -300,6 +300,7 @@ class NoviasSaleOrder(models.Model):
         return res
     def cast_date(self,date):
         user_tz = self.env.user.tz or pytz.utc.zone
+        _logger.info("-----------------------------------"+str( user_tz) )
         local = pytz.timezone(user_tz)
         now = date
         today = now.astimezone(local)
