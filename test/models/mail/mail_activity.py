@@ -86,5 +86,5 @@ class NoviasMailActivity(models.Model):
     #ON CHANGE
     @api.onchange('test_date')
     def _on_test_date(self):
-      self.date_deadline = self.test_date  
+      self.date_deadline = self.test_date.date()  
     #ON CHANGE
