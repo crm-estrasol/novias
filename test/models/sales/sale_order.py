@@ -6,6 +6,8 @@ from odoo.tools.misc import clean_context
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
+from datetime import timedelta, datetime
+import pytz
 class NoviasSaleOrder(models.Model):
     _inherit  = "sale.order"
     
@@ -251,11 +253,13 @@ class NoviasSaleOrder(models.Model):
             same way when we search on partner_id, with the addition of being optimal when having a query that will
             search on partner_id and ref at the same time (which is the case when we open the bank reconciliation widget)
         """
-        #cr = self._cr
-        #cr.execute("SELECT * FROM public.sale_order ")  
-        #po = self.env['purchase.order'].search( [('partner_id','=',3)] )
-        #._cr.dictfetchall()
-        #_logger.info("-----------------------------------"+str(self.env.user.warehouse_id.name ) )
+        sales = self.env["sale.order"].search( [('id','=','3')]  )
+        user_tz = self.env.user.tz or pytz.utc.zone
+        local = pytz.timezone(user_tz)
+        now = sales.date_workshop
+        today = (now + local.utcoffset(now)).replace(hour=0, minute=0, second=0) - local.utcoffset(now)
+        #tomorrow = (now + local.utcoffset(now)).replace(hour=23, minute=59, second=59) - local.utcoffset(now)
+        _logger.info("-----------------------------------"+str( today) )
         
     def purchase_service_prepare_order_values_n(self, supplierinfo):
         """ Returns the values to create the purchase order from the current SO line.

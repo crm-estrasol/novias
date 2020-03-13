@@ -13,7 +13,7 @@
 
                 </xpath>
                 <xpath expr="//field[@name='date_deadline']" position="replace">
-                    <field name="date_deadline" inviisble="1"  />    
+                    <field name="date_deadline" invisible="1"  />    
                     <field name="test_date" required="1"  />
                     
 
