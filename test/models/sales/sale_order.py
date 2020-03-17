@@ -78,8 +78,9 @@ class NoviasSaleOrder(models.Model):
                         if  sale_pick.state == 'done' :
                             ready = 1
                         else:
-                            ready = 0        
-                if  datetime.today() >= date_inf and datetime.today() <= date_sup:
+                            ready = 0
+
+                if  datetime.today() >= date_inf :
                     if ready == 0:
                         status = 'empty_closest'
                     else:
