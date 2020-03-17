@@ -113,7 +113,8 @@
             </xpath>
             <xpath expr="//field[@name='create_date']" position="after">            
                 <field name="event_date"  />   
-                <field name="date_sheddule"  />   
+                <field name="date_sheddule"  /> 
+                <field name="date_workshop"  />   
             </xpath>
 
              <xpath expr="//field[@name='commitment_date']" position="attributes">
