@@ -129,16 +129,16 @@ class NoviasSaleOrder(models.Model):
     #ON CHANGE
     @api.onchange('order_line')
     def _change_lines(self):
-        cr = self._cr
-        cr.execute("SELECT * FROM public.sale_order ") 
-        _logger.info("-----------------------------------"+str(cr.dictfetchall()) )
+        #cr = self._cr
+        #cr.execute("SELECT * FROM public.sale_order ") 
+        #_logger.info("-----------------------------------"+str(cr.dictfetchall()) )
         for orl in self.order_line:
             sales = self.env['sale.order'].search( ['&',('order_line.product_id.id','=',orl.product_id.id),('date_sheddule','!=',False)])               
-            _logger.info( "----------------------------------- "+str(sales) )
+            #_logger.info( "----------------------------------- "+str(sales) )
             #sales_test = [ (sale.date_sheddule,sale.date_sheddule-relativedelta(months=4) ) for sale in sales if sale.date_sheddule  ]
             #_logger.info( "----------------------------------- "+str(sales_test) )
             sales_qulified = [ sale for sale in sales if self.date_order<sale.date_sheddule-relativedelta(months=4) if sale.date_sheddule]
-            _logger.info( "----------------------------------- "+str(sales_qulified) )
+            #_logger.info( "----------------------------------- "+str(sales_qulified) )
             #sales = [sale for sale in  sales_qulified.picking_ids if sale.state == 'assigned' and "Reservados" in sale.location_id.name  ]
             pickings = []
             for sale_q in sales_qulified:
@@ -171,7 +171,7 @@ class NoviasSaleOrder(models.Model):
        view_id = self.env.ref('mail.mail_activity_view_form_popup').id
        model_id = self.env['ir.model']._get('sale.order').id
        view = {
-           'name': ('Nombre'),
+           'name': ('Fecha prueba'),
            'view_mode': 'form',
            'res_model': 'mail.activity',
            'views':  [(view_id,'form')],
@@ -195,7 +195,7 @@ class NoviasSaleOrder(models.Model):
        view_id = self.env.ref('mail.mail_activity_view_form_popup').id
        model_id = self.env['ir.model']._get('sale.order').id
        view = {
-           'name': ('Nombre'),
+           'name': ('Nueva fecha prueba(Taller)'),
            'view_mode': 'form',
            'res_model': 'mail.activity',
            'views':  [(view_id,'form')],
