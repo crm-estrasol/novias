@@ -306,6 +306,6 @@ class NoviasSaleOrder(models.Model):
         
         return today
 #CRON ACTIONS
-@api.model
+    @api.model
     def update_state(self):
-         _logger.info("-----------------------------------"+str( "accion 1" ) )
+         _logger.info("-----------------------------------"+str( "accion" ) )
