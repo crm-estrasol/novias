@@ -305,7 +305,7 @@ class NoviasSaleOrder(models.Model):
         today = now.astimezone(local)
         
         return today
-#CRON ACTIONS
+#CRON ACTIONSs
     @api.model
     def update_state(self):
          _logger.info("-----------------------------------"+str( "accion" ) )
