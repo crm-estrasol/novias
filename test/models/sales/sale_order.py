@@ -93,21 +93,13 @@ class NoviasSaleOrder(models.Model):
                     status = 'ready'
             
             if sale.date_workshop:
-                    for sale_pick in sale.picking_ids:
-                        if "Taller" in sale_pick.location_id.name:
-                            if  sale_pick.state == 'assigned':
-                                ready = 2
-                            if  sale_pick.state == 'done':
-                                ready = 3
-                    if ready == 3:
+                    
+                    if sale.shedule_deliver:
                         status = 'done'
                     elif  datetime.today() >= sale.date_workshop-relativedelta(days=2):
-                        if ready == 2:
-                            status = 'in_workshop'
-                        else:
-                            status = 'in_workshop_u'
+                        status = 'in_workshop_u'
                     else:
-                         status = 'in_workshop'
+                        status = 'in_workshop'
                         
 
                     
