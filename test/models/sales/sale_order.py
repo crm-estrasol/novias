@@ -65,7 +65,8 @@ class NoviasSaleOrder(models.Model):
     
      
     @api.depends('date_sheddule')
-    def _compute_general_status(self):        
+    def _compute_general_status(self):  
+        _logger.info("-----------------------------------"+str("entre") )      
         for sale in self:
             ready = 0
             status = ""
