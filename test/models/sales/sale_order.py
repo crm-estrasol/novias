@@ -31,9 +31,9 @@ class NoviasSaleOrder(models.Model):
     ready_sale = fields.Boolean("Venta lista",compute='_compute_invoice_ids')
     sale_note = fields.Char('Nota de venta',tracking=True)
     comment_workshop = fields.Char('Note')
-    statusg = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo para taller'),('empty', 'Pendiente'),('empty_closest', 'Pendiente(Urgente)'),('in_workshop', 'En taller'),('in_workshop_u', 'En taller(Urgente)'),('done', 'Entregado'),],compute='_compute_general_status',invisible=True)
+    statusg = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo para taller'),('empty', 'Pendiente'),('em_fpty_closest', 'Pendiente(Urgente)'),('in_workshop', 'En taller'),('in_workshop_u', 'En taller(Urgente)'),('done', 'Entregado'),('ready_f', 'Listo')],compute='_compute_general_status',invisible=True)
     
-    status_gen = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo para taller'),('empty', 'Pendiente'),('empty_closest', 'Pendiente(Urgente)'),('in_workshop', 'En taller'),('in_workshop_u', 'En taller(Urgente)'),('done', 'Entregado')  ],"Estatus")
+    status_gen = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo para taller'),('empty', 'Pendiente'),('empty_closest', 'Pendiente(Urgente)'),('in_workshop', 'En taller'),('in_workshop_u', 'En taller(Urgente)'),('done', 'Entregado'),('ready_f', 'Listo')  ],"Estatus")
      
     #inherit
     #order_line = fields.One2many('sale.order.line', 'order_id', string='Order Lines', states={'cancel': [('readonly', True)], 'done': [('readonly', True)]}, copy=True, auto_join=True, compute='_compute_order_line')
@@ -93,9 +93,10 @@ class NoviasSaleOrder(models.Model):
                     status = 'ready'
             
             if sale.date_workshop:
-                    
-                    if sale.shedule_deliver:
+                    if sale.delivered:
                         status = 'done'
+                    elif sale.shedule_deliver:
+                        status = 'ready_f'
                     elif  datetime.today() >= sale.date_workshop-relativedelta(days=2):
                         status = 'in_workshop_u'
                     else:
