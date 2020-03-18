@@ -106,6 +106,10 @@ class NoviasSaleOrder(models.Model):
                             status = 'in_workshop'
                         else:
                             status = 'in_workshop_u'
+                    else:
+                         status = 'in_workshop'
+                        
+
                     
             if sale.date_sheddule:
                 sale.statusg = status                    
