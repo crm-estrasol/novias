@@ -100,7 +100,7 @@ class NoviasSaleOrder(models.Model):
                             if  sale_pick.state == 'done':
                                 ready = 3
                     if ready == 3:
-                        status = 'Entregado'
+                        status = 'done'
                     elif  datetime.today() >= sale.date_workshop-relativedelta(days=2):
                         if ready == 2:
                             status = 'in_workshop'
