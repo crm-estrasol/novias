@@ -41,6 +41,7 @@ class NoviasSaleOrder(models.Model):
     #ON COMPUTE
     @api.depends('total_invoiced','invoice_ids','ready_sale','amount_total','order_line')
     def _compute_invoice_ids(self):
+         _logger.info("-----------------------------------"+str("Acccion #1") )
         for record in self:
             if record.invoice_ids:
                 sum = 0
@@ -308,4 +309,4 @@ class NoviasSaleOrder(models.Model):
 #CRON ACTIONSs
     @api.model
     def update_state(self):
-         _logger.info("-----------------------------------"+str( "accion" ) )
+         self._compute_invoice_ids()
