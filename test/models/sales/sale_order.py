@@ -31,9 +31,9 @@ class NoviasSaleOrder(models.Model):
     ready_sale = fields.Boolean("Venta lista",compute='_compute_invoice_ids')
     sale_note = fields.Char('Nota de venta',tracking=True)
     comment_workshop = fields.Char('Note')
-    statusg = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo'),('empty', 'Pendiente'),('empty_closest', 'Pendiente(Urgente)')],compute='_compute_general_status',invisible=True)
+    statusg = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo para taller'),('empty', 'Pendiente'),('empty_closest', 'Pendiente(Urgente)'),('in_workshop', 'En taller'),('in_workshop_u', 'En taller(Urgente)'),('done', 'Entregado'),],compute='_compute_general_status',invisible=True)
     
-    status_gen = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo'),('empty', 'Pendiente'),('empty_closest', 'Pendiente(Urgente)')],"Estatus")
+    status_gen = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo para taller'),('empty', 'Pendiente'),('empty_closest', 'Pendiente(Urgente)'),('in_workshop', 'En taller'),('in_workshop_u', 'En taller(Urgente)'),('done', 'Entregado')  ],"Estatus")
      
     #inherit
     #order_line = fields.One2many('sale.order.line', 'order_id', string='Order Lines', states={'cancel': [('readonly', True)], 'done': [('readonly', True)]}, copy=True, auto_join=True, compute='_compute_order_line')
@@ -71,17 +71,12 @@ class NoviasSaleOrder(models.Model):
         for sale in self:
             ready = 0
             status = ""
-            if sale.date_sheddule:
+            if sale.date_sheddule and not sale.date_workshop:
                 date_inf = sale.date_sheddule-relativedelta(months=4)
                 date_sup = sale.date_sheddule
-                ready = 0
                 for sale_pick in sale.picking_ids:
                     if "Reservados" in sale_pick.location_id.name:
-                        if  sale_pick.state == 'done' :
-                            ready = 1
-                        else:
-                            ready = 0
-
+                        ready = 1 if  sale_pick.state == 'assigned' else 0                    
                 if  datetime.today() >= date_inf :
                     if ready == 0:
                         status = 'empty_closest'
@@ -96,6 +91,22 @@ class NoviasSaleOrder(models.Model):
                     status = 'empty'
                 else:
                     status = 'ready'
+            
+            if sale.date_workshop:
+                    for sale_pick in sale.picking_ids:
+                        if "Taller" in sale_pick.location_id.name:
+                            if  sale_pick.state == 'assigned'
+                                ready = 2
+                            if  sale_pick.state == 'done'
+                                ready = 3
+                    if ready == 3:
+                        status = 'Entregado'
+                    elif  datetime.today() >= sale.date_workshop-relativedelta(days=2):
+                        if ready == 2:
+                            status = 'in_workshop'
+                        else:
+                            status = 'in_workshop_u'
+                    
             if sale.date_sheddule:
                 sale.statusg = status                    
                 sale.write({'status_gen':status})
