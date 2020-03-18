@@ -95,9 +95,9 @@ class NoviasSaleOrder(models.Model):
             if sale.date_workshop:
                     for sale_pick in sale.picking_ids:
                         if "Taller" in sale_pick.location_id.name:
-                            if  sale_pick.state == 'assigned'
+                            if  sale_pick.state == 'assigned':
                                 ready = 2
-                            if  sale_pick.state == 'done'
+                            if  sale_pick.state == 'done':
                                 ready = 3
                     if ready == 3:
                         status = 'Entregado'
