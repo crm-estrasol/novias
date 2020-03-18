@@ -121,10 +121,7 @@ class NoviasSaleOrder(models.Model):
                 if order.opportunity_id:
                     order.opportunity_id.planned_revenue = amount_untaxed + amount_tax                
 
-                 
-
-
-
+        
 
     #ON COMPUTE END
     
@@ -308,3 +305,7 @@ class NoviasSaleOrder(models.Model):
         today = now.astimezone(local)
         
         return today
+#CRON ACTIONS
+@api.model
+    def update_state(self):
+         _logger.info("-----------------------------------"+str( "accion 1" ) )
