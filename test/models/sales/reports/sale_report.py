@@ -38,30 +38,17 @@ class ReportNoviasReports(models.AbstractModel):
                                         
                                      
                                      })
-        """
-        invoices = []                             
-        for invs_id in invoice_ids:
-            for invoice in invs_id:
-                if invoice.invoice_payment_state:
-                    total_price += invoice.amount_total 
-                    invoices.append({
-                                        'amount_total':product.product_id.name,
-                                        'quantity':product.product_uom_qty,
-                                        'price_unit':product.price_unit
-                                        
-                                     
-                                     })
-        """
+       
         payments = self.env["account.payment"].search([('invoice_ids','in',invoices_ids)])
-        _logger.info("-----------------------------------"+str(payments))
+       
         for pay in payments:
-            _logger.info("-----------------------------------"+str(pay.invoice_ids))
+           
             if pay.journal_id.type == "bank":
                 total_bank += pay.amount
             if pay.journal_id.type == "cash":
                 total_cash += pay.amount              
             total_invoice += pay.amount
-        _logger.info("-----------------------------------"+str(invoices_ids))    
+      
         
         return { 'products':products,
                   'total_price':total_price,
@@ -69,7 +56,8 @@ class ReportNoviasReports(models.AbstractModel):
                   'total_invoice':total_invoice,
                   'total_cash': total_cash,
                   'total_bank': total_bank,
-                  'global_total': total_cash + total_bank
+                  'global_total_f': total_cash + total_bank,
+                  'global_total': total_tax + total_price
                     }
 
     def _get_report_values(self, docids, data=None):
