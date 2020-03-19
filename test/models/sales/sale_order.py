@@ -31,7 +31,7 @@ class NoviasSaleOrder(models.Model):
     ready_sale = fields.Boolean("Venta lista",compute='_compute_invoice_ids')
     sale_note = fields.Char('Nota de venta',tracking=True)
     comment_workshop = fields.Char('Note')
-    statusg = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo para taller'),('empty', 'Pendiente'),('em_fpty_closest', 'Pendiente(Urgente)'),('in_workshop', 'En taller'),('in_workshop_u', 'En taller(Urgente)'),('done', 'Entregado'),('ready_f', 'Listo')],compute='_compute_general_status',invisible=True)
+    statusg = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo para taller'),('empty', 'Pendiente'),('empty_closest', 'Pendiente(Urgente)'),('in_workshop', 'En taller'),('in_workshop_u', 'En taller(Urgente)'),('done', 'Entregado'),('ready_f', 'Listo')],compute='_compute_general_status',invisible=True)
     
     status_gen = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo para taller'),('empty', 'Pendiente'),('empty_closest', 'Pendiente(Urgente)'),('in_workshop', 'En taller'),('in_workshop_u', 'En taller(Urgente)'),('done', 'Entregado'),('ready_f', 'Listo')  ],"Estatus")
      
