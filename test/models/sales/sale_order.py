@@ -6,6 +6,8 @@ from odoo.tools.misc import clean_context
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
+from datetime import timedelta, datetime
+import pytz
 class NoviasSaleOrder(models.Model):
     _inherit  = "sale.order"
     
@@ -29,9 +31,9 @@ class NoviasSaleOrder(models.Model):
     ready_sale = fields.Boolean("Venta lista",compute='_compute_invoice_ids')
     sale_note = fields.Char('Nota de venta',tracking=True)
     comment_workshop = fields.Char('Note')
-    statusg = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo'),('empty', 'Pendiente'),('empty_closest', 'Pendiente(Urgente)')],compute='_compute_general_status',invisible=True)
+    statusg = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo para taller'),('empty', 'Pendiente'),('empty_closest', 'Pendiente(Urgente)'),('in_workshop', 'En taller'),('in_workshop_u', 'En taller(Urgente)'),('done', 'Entregado'),('ready_f', 'Listo')],compute='_compute_general_status',invisible=True)
     
-    status_gen = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo'),('empty', 'Pendiente'),('empty_closest', 'Pendiente(Urgente)')],"Estatus")
+    status_gen = fields.Selection([('none', 'Ninguno'), ('ready', 'Listo para taller'),('empty', 'Pendiente'),('empty_closest', 'Pendiente(Urgente)'),('in_workshop', 'En taller'),('in_workshop_u', 'En taller(Urgente)'),('done', 'Entregado'),('ready_f', 'Listo')  ],"Estatus")
      
     #inherit
     #order_line = fields.One2many('sale.order.line', 'order_id', string='Order Lines', states={'cancel': [('readonly', True)], 'done': [('readonly', True)]}, copy=True, auto_join=True, compute='_compute_order_line')
@@ -39,6 +41,7 @@ class NoviasSaleOrder(models.Model):
     #ON COMPUTE
     @api.depends('total_invoiced','invoice_ids','ready_sale','amount_total','order_line')
     def _compute_invoice_ids(self):
+        _logger.info("-----------------------------------"+str("Acccion #1") )
         for record in self:
             if record.invoice_ids:
                 sum = 0
@@ -61,24 +64,20 @@ class NoviasSaleOrder(models.Model):
                 record.total_invoiced = 0
                 record.ready_sale = 0
     
-    
-    
-    @api.depends('date_sheddule')
-    def _compute_general_status(self):        
+     
+    @api.depends('date_sheddule','picking_ids.state','delivered','date_workshop','shedule_deliver')
+    def _compute_general_status(self):  
+        _logger.info("-----------------------------------"+str("entre") )      
         for sale in self:
             ready = 0
             status = ""
-            if sale.date_sheddule:
+            if sale.date_sheddule and not sale.date_workshop:
                 date_inf = sale.date_sheddule-relativedelta(months=4)
                 date_sup = sale.date_sheddule
-                ready = 0
                 for sale_pick in sale.picking_ids:
                     if "Reservados" in sale_pick.location_id.name:
-                        if  sale_pick.state == 'done' :
-                            ready = 1
-                        else:
-                            ready = 0        
-                if  datetime.today() >= date_inf and datetime.today() <= date_sup:
+                        ready = 1 if  sale_pick.state == 'assigned' else 0                    
+                if  datetime.today() >= date_inf :
                     if ready == 0:
                         status = 'empty_closest'
                     else:
@@ -92,28 +91,62 @@ class NoviasSaleOrder(models.Model):
                     status = 'empty'
                 else:
                     status = 'ready'
-            sale.write({'status_gen':status})
+            
+            if sale.date_workshop:
+                    if sale.delivered:
+                        status = 'done'
+                    elif sale.shedule_deliver:
+                        status = 'ready_f'
+                    elif  datetime.today() >= sale.date_workshop-relativedelta(days=2):
+                        status = 'in_workshop_u'
+                    else:
+                        status = 'in_workshop'
+                        
 
-                 
+                    
+            if sale.date_sheddule:
+                sale.statusg = status                    
+                sale.write({'status_gen':status})
+            else:
+                sale.statusg = "none" 
 
+    @api.depends('order_line.price_total')
+    def _amount_all(self):
+            """
+            Compute the total amounts of the SO.
+            """
+            for order in self:
+                amount_untaxed = amount_tax = 0.0
+                for line in order.order_line:
+                    amount_untaxed += line.price_subtotal
+                    amount_tax += line.price_tax
+                update = {
+                    'amount_untaxed': amount_untaxed,
+                    'amount_tax': amount_tax,
+                    'amount_total': amount_untaxed + amount_tax,
+                }
+               
+                order.update(update)
+                if order.opportunity_id:
+                    order.opportunity_id.planned_revenue = amount_untaxed + amount_tax                
 
-
+        
 
     #ON COMPUTE END
     
     #ON CHANGE
     @api.onchange('order_line')
     def _change_lines(self):
-        cr = self._cr
-        cr.execute("SELECT * FROM public.sale_order ") 
-        _logger.info("-----------------------------------"+str(cr.dictfetchall()) )
+        #cr = self._cr
+        #cr.execute("SELECT * FROM public.sale_order ") 
+        #_logger.info("-----------------------------------"+str(cr.dictfetchall()) )
         for orl in self.order_line:
             sales = self.env['sale.order'].search( ['&',('order_line.product_id.id','=',orl.product_id.id),('date_sheddule','!=',False)])               
-            _logger.info( "----------------------------------- "+str(sales) )
+            #_logger.info( "----------------------------------- "+str(sales) )
             #sales_test = [ (sale.date_sheddule,sale.date_sheddule-relativedelta(months=4) ) for sale in sales if sale.date_sheddule  ]
             #_logger.info( "----------------------------------- "+str(sales_test) )
             sales_qulified = [ sale for sale in sales if self.date_order<sale.date_sheddule-relativedelta(months=4) if sale.date_sheddule]
-            _logger.info( "----------------------------------- "+str(sales_qulified) )
+            #_logger.info( "----------------------------------- "+str(sales_qulified) )
             #sales = [sale for sale in  sales_qulified.picking_ids if sale.state == 'assigned' and "Reservados" in sale.location_id.name  ]
             pickings = []
             for sale_q in sales_qulified:
@@ -140,12 +173,13 @@ class NoviasSaleOrder(models.Model):
         if self.company_id:
            pass
     
+    
     #ON BUTTON ACTIONS
     def button_shedule_confirm(self):
        view_id = self.env.ref('mail.mail_activity_view_form_popup').id
        model_id = self.env['ir.model']._get('sale.order').id
        view = {
-           'name': ('Nombre'),
+           'name': ('Fecha prueba'),
            'view_mode': 'form',
            'res_model': 'mail.activity',
            'views':  [(view_id,'form')],
@@ -169,7 +203,7 @@ class NoviasSaleOrder(models.Model):
        view_id = self.env.ref('mail.mail_activity_view_form_popup').id
        model_id = self.env['ir.model']._get('sale.order').id
        view = {
-           'name': ('Nombre'),
+           'name': ('Nueva fecha prueba(Taller)'),
            'view_mode': 'form',
            'res_model': 'mail.activity',
            'views':  [(view_id,'form')],
@@ -227,12 +261,14 @@ class NoviasSaleOrder(models.Model):
             same way when we search on partner_id, with the addition of being optimal when having a query that will
             search on partner_id and ref at the same time (which is the case when we open the bank reconciliation widget)
         """
-        #cr = self._cr
-        #cr.execute("SELECT * FROM public.sale_order ")  
-        #po = self.env['purchase.order'].search( [('partner_id','=',3)] )
-        #._cr.dictfetchall()
-        #_logger.info("-----------------------------------"+str(self.env.user.warehouse_id.name ) )
-        
+        #sales = self.env["sale.order"].search( [('id','=','3')]  )
+        #user_tz = self.env.user.tz or pytz.utc.zone
+        #local = pytz.timezone(user_tz)
+        #now = sales.date_workshop
+        #today = now.astimezone(local)
+        #_logger.info("-----------------------------------"+str( today) )
+        #_logger.info("-----------------------------------"+str( today) )
+     
     def purchase_service_prepare_order_values_n(self, supplierinfo):
         """ Returns the values to create the purchase order from the current SO line.
             :param supplierinfo: record of product.supplierinfo
@@ -270,3 +306,15 @@ class NoviasSaleOrder(models.Model):
         #for field in fields_to_hide:
         #    res[field]['selectable'] = False
         return res
+    def cast_date(self,date):
+        user_tz = self.env.user.tz or "Mexico/General"
+        _logger.info("-----------------------------------"+str( user_tz ) )
+        local = pytz.timezone(user_tz)
+        now = date
+        today = now.astimezone(local)
+        
+        return today
+#CRON ACTIONSs
+    @api.model
+    def update_state(self):
+         self._compute_invoice_ids()

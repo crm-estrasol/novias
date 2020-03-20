@@ -74,6 +74,14 @@
                    
                 </xpath>
 
+                <xpath expr="//field[@name='require_signature']" position="attributes">
+                <attribute name="invisible">1</attribute>
+                     </xpath>
+                <xpath expr="//field[@name='require_payment']" position="attributes">
+                <attribute name="invisible">1</attribute>
+                     </xpath>
+           
+                
             </field>
 
         </record>
@@ -107,16 +115,60 @@
             <xpath expr="//field[@name='amount_total']" position="after">
                 <field name="total_invoiced" sum="Total Facturado" widget="monetary" />
             </xpath>
-            <xpath expr="//field[@name='name']" position="after">
-               
-                <field name="status_gen"  />
-            
+            <xpath expr="//field[@name='name']" position="after">            
+                <field name="status_gen"  />   
+                 
             </xpath>
+            <xpath expr="//field[@name='create_date']" position="after">            
+                <field name="event_date"  />   
+                <field name="date_sheddule"  /> 
+                <field name="date_workshop"  />   
+            </xpath>
+
+             <xpath expr="//field[@name='commitment_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='expected_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='create_date']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+
+            
             
         </field>
     </record>
 
-        
+        <record id="view_quotation_tree_order" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit.sale2.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="total_invoiced" sum="Total Facturado" widget="monetary" />
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">            
+                <field name="status_gen"  />   
+                 
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="after">            
+                <field name="event_date"  />   
+                <field name="date_sheddule"  /> 
+                <field name="date_workshop"  />   
+            </xpath>
+
+             <xpath expr="//field[@name='commitment_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='expected_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+           
+            
+        </field>
+    </record>
+
         
     </data>
 </odoo>
