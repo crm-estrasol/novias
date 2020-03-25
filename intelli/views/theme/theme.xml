@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+   
+
+          <template id="unique_t_ico" name="custom_2" inherit_id="web.assets_backend">
+
+            <xpath expr="." position="inside">
+
+               
+              
+                     <style>
+                        .custom_img img {
+                                        min-with:180px;
+                                        min-height:70px;
+                                        max-with:180px;
+                                        max-height:70px;
+                                        }
+                          
+                     </style>                                         
+            </xpath>
+        </template>
+
+      
+
+</data>
+</odoo>
+ 

@@ -1,0 +1,18 @@
+# -*- coding: utf-8 -*-
+
+from .settings import actuation
+from .settings import area
+from .settings import cloth
+from .settings import control
+from .settings import electronic
+from .settings import fall
+from .settings import instalation
+from .settings import style
+from .settings import multi_images
+
+from .tower import blind
+from .tower import tower
+
+from .department import department
+
+#from . import res_config_settings
