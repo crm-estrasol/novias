@@ -15,7 +15,7 @@ class Tower(models.Model):
 
 
     active = fields.Boolean('Active', default=True, track_visibility=True)
-    name = fields.Char("Nombre", track_visibility=True, size=20, required=True)
+    name = fields.Char("Nombre", track_visibility=True,  required=True)
     street = fields.Char("Calle 1",track_visibility=True, size=50, required=True)
     street2 = fields.Char("Calle 2",track_visibility=True, size=50)
     location  = fields.Char("Locación",track_visibility=True, size=30)
@@ -36,7 +36,8 @@ class Tower(models.Model):
     agent = fields.Many2one('res.partner', string='Agente', index=True,required=True)
     email_agent = fields.Char(related='agent.email', readonly=True, string='Email',track_visibility=True)
     currency_id = fields.Many2one("res.currency", string="Tipo cambio",required=True,track_visibility=True)
-    blinds = fields.One2many (comodel_name='intelli.blind',inverse_name='parent_tower',string="Persianas")
+    blinds = fields.One2many (comodel_name='intelli.blind',inverse_name='parent_tower',string="Cortinas")
+    departments = fields.One2many (comodel_name='intelli.department',inverse_name='tower',string="Departamentos")
     _sql_constraints = [
         ('unique_name', 'unique (name)', 'EL nombre no debe repetirse!')
        
@@ -46,7 +47,7 @@ class Tower(models.Model):
     def button_blinds(self):
        view_id = self.env.ref('intelli.tower_view_form_associate').id
        view = {
-           'name': ('Persianas'),
+           'name': ('Cortinas'),
            'view_type': 'form',
            'view_mode': 'form',
            'res_model': 'intelli.tower',
@@ -61,7 +62,7 @@ class Tower(models.Model):
 
     def copy(self, default=None):
         self.ensure_one()
-        res = super(Tower, self).copy({'name':self.name + "(copia)"})
+        
         news_blind = []
         for blind in self.blinds:
             blind_images = []
@@ -72,8 +73,15 @@ class Tower(models.Model):
             if blind.images:
                 new_blind.write({'images':blind_images}  )
             news_blind.append( (4, new_blind.id) )
+        new_deps = []
+        for depa in self.departments:
+            new_depa = depa.copy()
+            new_deps.append((4,new_depa.id))
+        res = super(Tower, self).copy({'name':self.name + "(copia)"})    
         if self.blinds:
             res.write({'blinds':news_blind}  )
+        if self.departments:
+            res.write({'departments':new_deps}  )
         return res
     def button_duplicate(self):
        self.copy()

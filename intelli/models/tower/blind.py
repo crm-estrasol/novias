@@ -32,7 +32,7 @@ class Blind(models.Model):
     _rec_name = 'name'
     active = fields.Boolean('Active', default=True, track_visibility=True)
     code = fields.Char("Codigo",track_visibility=True, size=20, required=True)
-    name = fields.Char("Nombre",track_visibility=True, size=20, required=True)
+    name = fields.Char("Nombre",track_visibility=True, required=True)
     style = fields.Many2one('intelli.style', string='Estilo',track_visibility=True,required=True,default=_get_style)
     with_w = fields.Float("Ancho max(W)",digits=(16, 2),track_visibility=True,required=True)
     heigth_h = fields.Float("Alto max(H)",digits=(16, 2),track_visibility=True, required=True)
@@ -57,7 +57,7 @@ class Blind(models.Model):
        view_id = self.env.ref('intelli.blind_view_form').id
        context = self.env.context
        view = {
-           'name': ('Persianas'),
+           'name': ('Cortinas'),
            'view_type': 'form',
            'view_mode': 'form',
            'res_model': 'intelli.blind',

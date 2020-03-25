@@ -70,7 +70,7 @@
                 
                 <field name="id" invisible="1" />
                 <field name="name"/>
-                 <button name="button_blinds" string="Persianas" type="object" />
+                 <button name="button_blinds" string="Cortinas" type="object" />
                  
                   <field name="street" />
                   <field name="street2" />
@@ -100,12 +100,12 @@
                                  
                                    <field name="blinds"  widget="open_one2many_line" >
                                      <tree
-                                          string="Persianas"
+                                          string="Cortinas"
                                        
                                         
                                       >   
                                           
-                                          <field name="blind" widget='image'  options='{"preview_image": "image_128"}' style="width:100px; height:100px;"/>
+                                          <field name="blind" widget='image'  style="width:100px; height:100px;"/>
                                           <field name="parent_tower" invisible="1" />
                                           <field name="name" />
                                           <field name="code" />
@@ -187,11 +187,11 @@
                     <div class="row" style="overflow-x: scroll;">
                      <div class="col-md-12">
                       <notebook>
-                        <page string="Persianas" >
+                        <page string="Cortinas" >
                                  
                                    <field name="blinds"  widget="open_one2many_line" >
                                      <tree
-                                          string="Persianas"
+                                          string="Cortinas"
                                          
                                         
                                       >
@@ -211,6 +211,7 @@
                                    </field> 
                                 
                         </page>  
+                        
                         </notebook>
                     </div>
                    </div>     

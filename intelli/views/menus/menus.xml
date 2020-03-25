@@ -7,6 +7,7 @@
     
      <!-- Sub Menus principal -->
     <menuitem id="intelli_menu_tower" name="Torres" parent="intelli_menu_root"/>
+    <menuitem id="intelli_menu_department" name="Departamentos" parent="intelli_menu_root" />
     <menuitem id="intelli_menu_conf" name="Configuración" parent="intelli_menu_root" />
     
     
@@ -25,8 +26,9 @@
      <!--  Sub-Sub Menus Torres -->
      <menuitem id="tower_tower" name="Torres" parent="intelli_menu_tower" action="action_intelli_tower"/>
      
-     <menuitem id="blinds_tower" name="Persianas" parent="intelli_menu_tower" action="action_intelli_blind"/>
+     <menuitem id="blinds_tower" name="Cortinas" parent="intelli_menu_tower" action="action_intelli_blind"/>
     
-    
-
+     <!--  Sub-Sub Menus Depas -->
+      <menuitem id="tower_department" name="Departamentos" parent="intelli_menu_department" action="action_intelli_department"/>
+      <menuitem id="department_area" name="Areas" parent="intelli_menu_department" action="action_intelli_department_area"/>  
 </odoo>

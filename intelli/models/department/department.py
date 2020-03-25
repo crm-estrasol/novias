@@ -16,23 +16,24 @@ class Department(models.Model):
         return instalation.id
 
     active = fields.Boolean('Active', default=True, track_visibility=True)
-    name = fields.Char("Departamento", track_visibility=True, size=20, required=True)
+    name = fields.Char("Departamento", track_visibility=True, required=True)
     map = fields.Image("Plano",track_visibility=True)
-    instalation = fields.Many2one('intelli.instalation', string='Agente', required=True, default=_get_instalation)
-    tower = fields.Many2one('intelli.tower', string='Torre', required=True)
+    instalation = fields.Many2one('intelli.instalation', string='Instalación', required=True, default=_get_instalation)
+    tower = fields.Many2one('intelli.tower', string='Torre', required=True,ondelete='cascade')
+    department_areas = fields.One2many (comodel_name='intelli.department.area',inverse_name='parent_department',string="Areas")
     _sql_constraints = [
         ('unique_name_', 'unique (name)', 'EL nombre no debe repetirse!')
        
     ]
 
     #Boton
-    def button_blinds(self):
-       view_id = self.env.ref('intelli.tower_view_form_associate').id
+    def button_areas(self):
+       view_id = self.env.ref('intelli.department_view_form_associate').id
        view = {
-           'name': ('Persianas'),
+           'name': ('Areas'),
            'view_type': 'form',
            'view_mode': 'form',
-           'res_model': 'intelli.tower',
+           'res_model': 'intelli.department',
            'views':  [(view_id,'form')],
           'type': 'ir.actions.act_window',
            'target': 'new',
@@ -45,19 +46,14 @@ class Department(models.Model):
     def copy(self, default=None):
         self.ensure_one()
         res = super(Department, self).copy({'name':self.name + "(copia)"})
-        news_blind = []
-        for blind in self.blinds:
-            blind_images = []
-            for image in blind.images:
-                new_image = image.copy({'parent_blind':False})
-                blind_images.append( (4, new_image.id) )
-            new_blind = blind.copy({'parent_tower':False})
-            if blind.images:
-                new_blind.write({'images':blind_images}  )
-            news_blind.append( (4, new_blind.id) )
-        if self.blinds:
-            res.write({'blinds':news_blind}  )
+        news_area = []
+        for area in self.department_areas:    
+            new_area = area.copy({'parent_department':False})
+            news_area.append( (4, new_area.id) )
+        if self.department_areas:
+            res.write({'department_areas':news_area}  )
         return res
+    
     def button_duplicate(self):
        self.copy()
 
@@ -67,18 +63,5 @@ class Department(models.Model):
         if sys.getsizeof(self.map)  > 1*1000*1000:      
             raise UserError(_("Exediste el tamaño permitido (1mb/10000) para la imagen ."))
    
-    """
-    def open_one2many_line(self):
-        context = self.env.context
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Open Line',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': self._name,
-            'res_id': context.get('default_active_id'),
-            'target': 'new',
-        }}
-    """
-
+   
    

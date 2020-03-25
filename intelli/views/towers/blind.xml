@@ -155,6 +155,55 @@
       </record>
       
 
+       <record id="blind_view_form_hide" model="ir.ui.view">
+          <field name="name">intelli.form</field>
+          <field name="model">intelli.blind</field>
+          <field name="arch" type="xml" >
+            <form>
+              <sheet>
+                <div class="oe_button_box" name="button_box">
+                  <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                    <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                  </button>
+                </div>
+                   <div class="row">
+                     <div class="col-2" >
+                        <field name="blind" widget='image'  style="width:150px;"/>
+                       </div>   
+                       <div class="col-sm-10"> 
+                           <group>
+                                 <field name="parent_tower" readonly="1" />
+                                <field name="name" />
+                                <field name="code" />
+                                <field name="style" readonly="1" />
+                                <field name="with_w" />
+                                <field name="heigth_h" />
+                                <field name="price_size" />
+                                <field name="price" />
+                                <field name="cloth" />                
+                                <field name="actuation" />
+                                <field name="electronic" />
+                                <label for="images" string="Imagenes"/>
+                                <field name="images" class="o_website_sale_image_list" context="{'default_name': 'hola'}" mode="kanban" options="{'create_text':'Añadir imagen'}" nolabel="1"/>
+                            </group>
+                         
+                    </div>
+                       
+                   </div>        
+                
+                        
+                       
+                       
+              </sheet>
+              <div class="oe_chatter" modifiers="{}">
+                <field name="message_follower_ids" widget="mail_followers" modifiers="{}"/>
+                <field name="activity_ids" widget="mail_activity" modifiers="{}"/>
+                <field name="message_ids" widget="mail_thread" modifiers="{}" options="{'display_log_button': True}"/>
+              </div>
+            </form>
+          </field>
+      </record>
+
       <record id="blind_view_form" model="ir.ui.view">
           <field name="name">intelli.form</field>
           <field name="model">intelli.blind</field>
@@ -168,7 +217,7 @@
                 </div>
                    <div class="row">
                      <div class="col-2" >
-                        <field name="blind" widget='image'  options='{"preview_image": "image_128"}' style="width:150px;"/>
+                        <field name="blind" widget='image'  style="width:150px;"/>
                        </div>   
                        <div class="col-sm-10"> 
                            <group>
@@ -206,7 +255,7 @@
 
 
       <record id="action_intelli_blind" model="ir.actions.act_window">
-           <field name="name">Persianas</field>
+           <field name="name">Cortinas</field>
            <field name="type">ir.actions.act_window</field>
            <field name="res_model">intelli.blind</field>
             <field name="context">{'create':False}</field>
