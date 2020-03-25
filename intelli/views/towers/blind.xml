@@ -158,7 +158,7 @@
        <record id="blind_view_form_hide" model="ir.ui.view">
           <field name="name">intelli.form</field>
           <field name="model">intelli.blind</field>
-            <field name="priority">1</field>
+           
           <field name="arch" type="xml" >
             <form>
               <sheet>
