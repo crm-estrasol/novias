@@ -9,10 +9,10 @@ from .settings import fall
 from .settings import instalation
 from .settings import style
 from .settings import multi_images
-
+from .settings import pdf
 from .tower import blind
 from .tower import tower
 
 from .department import department
 from .department import department_area
-#from . import res_config_settings
+from . import res_config_settings

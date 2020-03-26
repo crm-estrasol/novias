@@ -19,11 +19,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','web','mail'],
+    'depends': ['base','base_setup','web','mail'],
 
     # always loaded
     'data': [
+      'security/security.xml',
          'security/ir.model.access.csv',
+         
         'views/settings/actuation.xml',   
          'views/settings/area.xml',      
            'views/settings/cloth.xml',      
@@ -31,12 +33,14 @@
                'views/settings/electronic.xml',      
                  'views/settings/fall.xml',      
                    'views/settings/instalation.xml',
+                   'views/settings/pdf.xml',
                     'views/towers/blind.xml',      
                     'views/towers/tower.xml',
                       'views/department/department.xml', 
                       'views/department/department_area.xml',          
                      'views/settings/style.xml',  
-                     'views/theme/theme.xml',       
+                     'views/theme/theme.xml',   
+                     'views/settings/res_config_settings_views.xml',    
         'views/menus/menus.xml',
     ],  
      'qweb': [
