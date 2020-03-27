@@ -9,7 +9,7 @@
             <xpath expr="." position="inside">
 
                
-                <link rel="stylesheet" type="text/scss" href="/intelli/static/src/scss/theme.scss"/>
+              
                                                               
             </xpath>
         </template>
