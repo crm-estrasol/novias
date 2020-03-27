@@ -3,5 +3,5 @@ from odoo.exceptions import UserError
 import sys
 class Manual(models.Model):
     _name= 'intelli.pdf'
-    name = fields.Char("Name", required=True)
+    name = fields.Char("Nombre", required=True)
     pdf = fields.Binary("Pdf", required=True)
