@@ -9,14 +9,14 @@ $o-font-size-base: 13rem * (1px / $o-root-font-size);
 $o-line-height-base: 1.5; // This is BS default
 
 // Colors
-
+$eo : #D2D2FF;
 
 $o-community-color: #414345;
 $o-enterprise-color: #875A7B;
-$o-enterprise-primary-color: #00A09D;
+$o-enterprise-primary-color: #E95A0C;
 
 $o-brand-odoo: $o-community-color;
-$o-brand-primary: $o-community-color;
+$o-brand-primary: #E95A0C;
 
 $o-brand-lightsecondary: #e2e2e0;
 $o-gray-100: #f8f9fa; // This is BS default
@@ -117,6 +117,11 @@ $o-kanban-dashboard-dropdown-complex-gap: 5px;
 // For the frontend part
 $o-theme-font-size-base: (14 / 16) * 1rem;
 
+.o_required_modifier {
+    &.o_input, .o_input {
+        background-color: #E3EFFF!important;
+    }
+}
 // Button box
 .oe_button_box {
     &, & + .oe_avatar {
