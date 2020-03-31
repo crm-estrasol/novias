@@ -22,5 +22,5 @@
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
-<!--->
+<!--d->
 </odoo>
