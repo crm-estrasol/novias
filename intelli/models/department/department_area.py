@@ -8,7 +8,7 @@ class Departent_Area(models.Model):
     _name= 'intelli.department.area'
     _inherit =  ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'name'
-    #v
+   
     def _get_fall(self):
         fall = self.env['intelli.fall'].search([('name', '=', 'No aplica')], limit=1)
         if not fall:
@@ -24,7 +24,7 @@ class Departent_Area(models.Model):
     with_w = fields.Float("Ancho",digits=(16, 2),track_visibility=True)
     heigth_h = fields.Float("Alto",digits=(16, 2),track_visibility=True) 
     area = fields.Many2one('intelli.area', string='Area',required=True)
-    fall = fields.Many2one('intelli.fall', string='Tela',required=True,default=_get_fall)
+    fall = fields.Many2one('intelli.fall', string='Caída',required=True,default=_get_fall)
     control = fields.Many2one('intelli.control', string='Control',required=True,default=_get_control)
     parent_department = fields.Many2one('intelli.department', string='Departamento',readonly=True,ondelete='cascade' )
     parent_tower = fields.Integer(related="parent_department.tower.id")

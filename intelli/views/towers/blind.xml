@@ -46,7 +46,7 @@
                 <field name="price"/>
                 <separator/>
                 
-                <filter string="Tela" name="cloth" />
+                <filter string="Caída" name="cloth" />
                 <separator/>
                 <field name="cloth"/>
                 <separator/>
@@ -257,7 +257,7 @@
 
 
       <record id="action_intelli_blind" model="ir.actions.act_window">
-           <field name="name">Cortinas</field>
+           <field name="name">Productos</field>
            <field name="type">ir.actions.act_window</field>
            <field name="res_model">intelli.blind</field>
             <field name="context">{'create':False}</field>

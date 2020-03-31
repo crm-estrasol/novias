@@ -48,7 +48,7 @@
 
 
       <record id="action_intelli_cloth" model="ir.actions.act_window">
-           <field name="name">Tela</field>
+           <field name="name">Caída</field>
            <field name="type">ir.actions.act_window</field>
            <field name="res_model">intelli.cloth</field>
            <field name="view_mode">tree,form</field>

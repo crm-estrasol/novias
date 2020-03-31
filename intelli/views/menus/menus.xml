@@ -15,7 +15,7 @@
      <!--  Sub-Sub Menus Configuracion -->
     <menuitem id="actuation_menu" name="Accionamiento" parent="intelli_menu_conf"  action="action_intelli_actuation"  />
     <menuitem id="area_menu" name="Area" parent="intelli_menu_conf"  action="action_intelli_area" />
-    <menuitem id="cloth_menu" name="Tela" parent="intelli_menu_conf"  action="action_intelli_cloth" />
+    <menuitem id="cloth_menu" name="Caída" parent="intelli_menu_conf"  action="action_intelli_cloth" />
     <menuitem id="control_menu" name="Control" parent="intelli_menu_conf"  action="action_intelli_control" />
     <menuitem id="electronic_menu" name="Electrónica" parent="intelli_menu_conf"  action="action_intelli_electronic" />
     <menuitem id="fall_menu" name="Caída" parent="intelli_menu_conf"  action="action_intelli_fall" />
@@ -26,7 +26,7 @@
      <!--  Sub-Sub Menus Torres -->
      <menuitem id="tower_tower" name="Torres" parent="intelli_menu_tower" action="action_intelli_tower"/>
      
-     <menuitem id="blinds_tower" name="Cortinas" parent="intelli_menu_tower" action="action_intelli_blind"/>
+     <menuitem id="blinds_tower" name="Productos" parent="intelli_menu_tower" action="action_intelli_blind"/>
     
      <!--  Sub-Sub Menus Depas -->
       <menuitem id="tower_department" name="Departamentos" parent="intelli_menu_department" action="action_intelli_department"/>
