@@ -39,7 +39,7 @@ class Blind(models.Model):
     price_size = fields.Float("Precio m2",digits=(16, 2),track_visibility=True, required=True)
     price =  fields.Float("Precio fijo",digits=(16, 2),track_visibility=True, required=True)
     #cloth_iamges =  iamgenes
-    cloth = fields.Many2one('intelli.cloth', string='Caída',required=True,default=_get_cloth)
+    cloth = fields.Many2one('intelli.cloth', string='Tela',required=True,default=_get_cloth)
     blind = fields.Image("Imagen")
     actuation = fields.Many2one('intelli.actuation', string='Accionamiento',required=True,default=_get_actuation)
     electronic = fields.Many2one('intelli.electronic', string='Electrónica',required=True,default=_get_electronic)

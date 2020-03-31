@@ -46,7 +46,7 @@
                 <field name="price"/>
                 <separator/>
                 
-                <filter string="Caída" name="cloth" />
+                <filter string="Tela" name="cloth" />
                 <separator/>
                 <field name="cloth"/>
                 <separator/>
