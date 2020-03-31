@@ -1,0 +1,67 @@
+///
+/// This file regroups the variables that style odoo components.
+/// They are available in every asset bundle.
+///
+
+// Font sizes
+
+// Colors
+$eo : #D2D2FF;
+
+$o-community-color: #414345;
+$o-enterprise-color: #875A7B;
+$o-enterprise-primary-color: #E95A0C;
+
+$o-brand-odoo: $o-community-color;
+$o-brand-primary: #E95A0C;
+
+$o-brand-lightsecondary: #e2e2e0;
+$o-gray-100: #f8f9fa; // This is BS default
+
+$o-main-color-muted: #a8a8a8;
+$o-main-text-color: #4c4c4c;
+
+$o-view-background-color: white;
+$o-shadow-color: #303030;
+
+$o-form-lightsecondary: #ccc;
+
+$o-list-footer-bg-color: #eee;
+$o-list-footer-font-weight: bold;
+
+$o-tooltip-background-color: black;
+$o-tooltip-color: white;
+$o-tooltip-arrow-color: black;
+$o-tooltip-text-color: #777777;
+$o-tooltip-title-text-color: #4c4c4c;
+
+
+
+
+$o-datepicker-week-color: #8f8f8f;
+
+
+
+// Button box
+.oe_button_box {
+    &, & + .oe_avatar {
+        + .oe_title {
+            width: 400px;
+        }
+    }
+
+    // TODO remove me in master (this rule is a copy of the one in the
+    // bootstrap_review.scss file)
+    + .alert {
+        clear: both;
+    }
+
+    .oe_stat_button {
+        &:hover {
+            background-color: #e6e6e6;
+        }
+        .o_button_icon {
+            color: rgb(207,97,97)
+        }
+    }
+}
