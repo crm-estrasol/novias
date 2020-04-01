@@ -112,3 +112,6 @@ class Tower(models.Model):
             'target': 'new',
         }}
     """
+
+    def data_return(self,id):    
+        return self.id
