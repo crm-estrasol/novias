@@ -36,11 +36,12 @@ class Blind(models.Model):
     style = fields.Many2one('intelli.style', string='Estilo',track_visibility=True,required=True,default=_get_style)
     with_w = fields.Float("Ancho max(W)",digits=(16, 2),track_visibility=True,required=True)
     heigth_h = fields.Float("Alto max(H)",digits=(16, 2),track_visibility=True, required=True)
+    m2_max = fields.Float("M2 max",digits=(16, 2),track_visibility=True, required=True)
     price_size = fields.Float("Precio m2",digits=(16, 2),track_visibility=True, required=True)
     price =  fields.Float("Precio fijo",digits=(16, 2),track_visibility=True, required=True)
     #cloth_iamges =  iamgenes
     cloth = fields.Many2one('intelli.cloth', string='Tela',required=True,default=_get_cloth)
-    blind = fields.Image("Imagen")
+    blind = fields.Image("Imagen",required=True)
     actuation = fields.Many2one('intelli.actuation', string='Accionamiento',required=True,default=_get_actuation)
     electronic = fields.Many2one('intelli.electronic', string='Electrónica',required=True,default=_get_electronic)
     parent_tower =  fields.Many2one('intelli.tower', string='Torre',ondelete='cascade')
@@ -57,7 +58,7 @@ class Blind(models.Model):
        view_id = self.env.ref('intelli.blind_view_form').id
        context = self.env.context
        view = {
-           'name': (' Productos'),
+           'name': ('Cortinas'),
            'view_type': 'form',
            'view_mode': 'form',
            'res_model': 'intelli.blind',

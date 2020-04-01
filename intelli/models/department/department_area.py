@@ -24,7 +24,7 @@ class Departent_Area(models.Model):
     with_w = fields.Float("Ancho",digits=(16, 2),track_visibility=True)
     heigth_h = fields.Float("Alto",digits=(16, 2),track_visibility=True) 
     area = fields.Many2one('intelli.area', string='Area',required=True)
-    fall = fields.Many2one('intelli.fall', string='Caída',required=True,default=_get_fall)
+    fall = fields.Many2one('intelli.fall', string='Tela',required=True,default=_get_fall)
     control = fields.Many2one('intelli.control', string='Control',required=True,default=_get_control)
     parent_department = fields.Many2one('intelli.department', string='Departamento',readonly=True,ondelete='cascade' )
     parent_tower = fields.Integer(related="parent_department.tower.id")
@@ -59,18 +59,46 @@ class Departent_Area(models.Model):
     def on_width(self):
         if self.with_w == 0:
            return 
+        m2_max = self.with_w * self.heigth_h
+        if m2_max > self.blind.m2_max:
+            res = {}
+            self.with_w = 0
+            self.heigth_h = 0
+            
+            res['warning'] = {
+                'title': _('Error'),
+                'message': _('Excediste  M2  permitido, m2 maximo '+ str(self.blind.m2_max)
+                                )            
+                                }
+            return res
+
         if self.with_w > self.blind.with_w:
             res = {}
             self.with_w = 0
+           
+            
             res['warning'] = {
                 'title': _('Error'),
                 'message': _('Excediste el ancho permitido, ancho maximo '+ str(self.blind.with_w)
-)            }
+                                    )            }
             return res
+
     @api.onchange('heigth_h')
     def on_heigth(self):
         if self.heigth_h == 0:
            return 
+        m2_max = self.with_w * self.heigth_h
+        if m2_max > self.blind.m2_max:
+            res = {}
+            self.with_w = 0
+            self.heigth_h = 0
+            
+            res['warning'] = {
+                'title': _('Error'),
+                'message': _('Excediste  M2  permitido, m2 maximo '+ str(self.blind.m2_max)
+                                )            
+                                }
+            return res
         if self.heigth_h > self.blind.heigth_h:
             res = {}
             self.heigth_h = 0
@@ -79,3 +107,7 @@ class Departent_Area(models.Model):
                 'message': _('Excediste el alto permitido, alto maximo '+ str(self.blind.heigth_h))
             }
             return res
+    @api.onchange('blind')
+    def on_blind(self):
+        self.with_w = 0
+        self.heigth_h = 0
