@@ -114,4 +114,4 @@ class Tower(models.Model):
     """
 
     def data_return(self,id):    
-        return self.id
+        return ['OK', '']
