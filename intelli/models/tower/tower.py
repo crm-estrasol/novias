@@ -36,7 +36,7 @@ class Tower(models.Model):
     agent = fields.Many2one('res.partner', string='Agente', index=True,required=True)
     email_agent = fields.Char(related='agent.email', readonly=True, string='Email',track_visibility=True)
     currency_id = fields.Many2one("res.currency", string="Tipo cambio",required=True,track_visibility=True)
-    blinds = fields.One2many (comodel_name='intelli.blind',inverse_name='parent_tower',string="Cortinas")
+    blinds = fields.One2many (comodel_name='intelli.blind',inverse_name='parent_tower',string="Productos")
     departments = fields.One2many (comodel_name='intelli.department',inverse_name='tower',string="Departamentos")
     _sql_constraints = [
         ('unique_name', 'unique (name)', 'EL nombre no debe repetirse!')
@@ -47,7 +47,7 @@ class Tower(models.Model):
     def button_blinds(self):
        view_id = self.env.ref('intelli.tower_view_form_associate').id
        view = {
-           'name': ('Cortinas'),
+           'name': ('Productos'),
            'view_type': 'form',
            'view_mode': 'form',
            'res_model': 'intelli.tower',

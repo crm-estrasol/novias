@@ -41,7 +41,7 @@ class Blind(models.Model):
     price =  fields.Float("Precio fijo",digits=(16, 2),track_visibility=True, required=True)
     #cloth_iamges =  iamgenes
     cloth = fields.Many2one('intelli.cloth', string='Tela',required=True,default=_get_cloth)
-    blind = fields.Image("Imagen",required=True)
+    blind = fields.Image("Imagen")
     actuation = fields.Many2one('intelli.actuation', string='Accionamiento',required=True,default=_get_actuation)
     electronic = fields.Many2one('intelli.electronic', string='Electrónica',required=True,default=_get_electronic)
     parent_tower =  fields.Many2one('intelli.tower', string='Torre',ondelete='cascade')
@@ -58,7 +58,7 @@ class Blind(models.Model):
        view_id = self.env.ref('intelli.blind_view_form').id
        context = self.env.context
        view = {
-           'name': ('Cortinas'),
+           'name': (' Productos'),
            'view_type': 'form',
            'view_mode': 'form',
            'res_model': 'intelli.blind',

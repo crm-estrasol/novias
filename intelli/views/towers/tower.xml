@@ -70,7 +70,7 @@
                 
                 <field name="id" invisible="1" />
                 <field name="name"/>
-                 <button name="button_blinds" string="Cortinas" type="object" />
+                 <button name="button_blinds" string="Productos" type="object" />
                  
                   <field name="street" />
                   <field name="street2" />
@@ -98,9 +98,9 @@
                    
                     <div class="col-md-12">
                                  
-                                   <field name="blinds"  widget="open_one2many_line" >
+                                   <field name="blinds"  widget="open_one2many_line"  context="{'default_parent_tower': id}">
                                      <tree
-                                          string="Cortinas"
+                                          string="Productos"
                                        
                                         
                                       >   
@@ -188,11 +188,11 @@
                     <div class="row" style="overflow-x: scroll;">
                      <div class="col-md-12">
                       <notebook>
-                        <page string="Cortinas" >
+                        <page string="Productos" >
                                  
-                                   <field name="blinds"  widget="open_one2many_line" >
+                                   <field name="blinds"  widget="open_one2many_line" context="{'default_parent_tower': id}" >
                                      <tree
-                                          string="Cortinas"
+                                          string="Productos"
                                          
                                         
                                       >
@@ -203,8 +203,8 @@
                                           <field name="style" />
                                           <field name="with_w" />
                                           <field name="heigth_h" />
-                                           <field name="m2_max" />
-                                     
+                                          <field name="m2_max" />
+                                          
                                           <field name="price_size" />
                                           <field name="price" />
                                           <field name="cloth" />                

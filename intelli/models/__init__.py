@@ -16,3 +16,4 @@ from .tower import tower
 from .department import department
 from .department import department_area
 from . import res_config_settings
+from .users import res_user

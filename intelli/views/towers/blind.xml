@@ -30,16 +30,15 @@
                 <separator/>
                 <field name="with_w"/>
                 <separator/>
-                
+                 
                 <filter string="Alto max" name="heigth_h" />
                 <separator/>
                 <field name="with_w"/>
                 <separator/>
-                 
                 <filter string="M2 max" name="m2_max" />
                 <separator/>
                 <field name="m2_max"/>
-                <separator/> 
+                <separator/>
                
                 <filter string="Precio m2" name="price_size" />
                 <separator/>
@@ -265,7 +264,7 @@
 
 
       <record id="action_intelli_blind" model="ir.actions.act_window">
-           <field name="name">Cortinas</field>
+           <field name="name">Productos</field>
            <field name="type">ir.actions.act_window</field>
            <field name="res_model">intelli.blind</field>
             <field name="context">{'create':False}</field>
