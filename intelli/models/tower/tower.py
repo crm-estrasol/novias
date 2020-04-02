@@ -113,5 +113,46 @@ class Tower(models.Model):
         }}
     """
 
-    def data_return(self,id):    
-        return ['OK', '']
+    def tower_departments(self,password):    
+        search = self.env['intelli.tower'].search([('password','=',password)])[0]
+        
+        data = {
+                 'id ': search['id'], 
+                'name ': search['name'],
+                'street' : search['street'], 
+                'street2' : search['street2'],
+                'location'  : search['location'],  
+                'state_id' : search['state_id'].name, 
+                'country_id' : search['country_id'].name, 
+                'instalation_price' : search['instalation_price'], 
+                'delivery_price' : search['delivery_price'], 
+                'password' : search['password'], 
+                'tower_picture' : search['tower_picture'], 
+                'background_picture' : search['background_picture'], 
+                'logo' : search['logo'], 
+                'agent' : search['agent'].name,
+                'email_agent' : search['email_agent'], 
+                'currency_id' : search['currency_id'].name
+             
+                }
+        data['departments'] = [
+                       {
+                           'id':department['id'],           
+                           'name':department['name'],
+                           'instalation':department['instalation'].name,
+                           'map':department['map'],
+                           'department_areas':len( department['department_areas']) if department['department_areas'] else "0",
+                          
+
+                       } for department in  search['departments']
+
+                    ]
+     
+        
+        return [  
+                    {
+                        
+                            'success': 200 if search else 204,
+                            'data':data
+                    }
+                    ]
