@@ -115,7 +115,7 @@ class Tower(models.Model):
 
     def tower_departments(self,password):    
         search = self.env['intelli.tower'].search([('password','=',password)])
-        if len(search) != 0:
+        if search :
             search= search[0]
             data = {
                     'id ': search['id'], 
@@ -153,7 +153,7 @@ class Tower(models.Model):
         return [  
                     {
                         
-                            'success': 200 if len(search) != 0 else 204,
-                            'data':data
+                            'success': 200 if search else 204,
+                            'data':data  if search else "null"
                     }
                     ]
