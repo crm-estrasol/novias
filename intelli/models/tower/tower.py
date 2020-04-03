@@ -118,8 +118,8 @@ class Tower(models.Model):
         if search :
             search= search[0]
             data = {
-                    'id ': search['id'], 
-                    'name ': search['name'],
+                    'id': search['id'], 
+                    'name': search['name'],
                     'street' : search['street'], 
                     'street2' : search['street2'],
                     'location'  : search['location'],  
