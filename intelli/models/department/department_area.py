@@ -117,7 +117,7 @@ class Departent_Area(models.Model):
     
     def product_areas(self,id):  
        
-        search = self.env['intelli.department.area'].search([], order='area desc, zona desc')
+        search = self.env['intelli.department.area'].search([], order='area desc, name desc')
                 
         
         for key, group in itertools.groupby(search, key=lambda x:x['area']):
