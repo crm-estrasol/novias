@@ -129,7 +129,7 @@ class Departent_Area(models.Model):
             new_area['zones']= [    {
                                         'name':key_z.name 
                                     }        
-                                    for key_z, group_z in itertools.groupby(list(group), key=lambda x: x['name']  )  ]           
+                                    for key_z, group_z in itertools.groupby(group, key=lambda x: x['name']  )  ]           
                         
             data.append(new_area)
         _logger.info("-----------------------------------"+str(data) )           
