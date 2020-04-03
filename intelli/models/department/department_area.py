@@ -133,8 +133,8 @@ class Departent_Area(models.Model):
                                                      'product_id': product.blind.id,
                                                      'product':product.blind.name,
                                                      'price':product.blind.price,
-                                                     'image':"pendiente",
-                                                     'images':["pendiente","aaas"]                   
+                                                     'image':product.blind.image,
+                                                     'images':[ image.image for image in product.blind.images ]                   
                                                     } for product in group_z
                                                    ]                      
                                     }        
