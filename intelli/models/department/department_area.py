@@ -131,7 +131,7 @@ class Departent_Area(models.Model):
                                     }        
                                     for key_z, group_z in itertools.groupby(list(group), key=lambda x: x['name']  )  ]           
                         
-            
+            data.append(new_area)
         _logger.info("-----------------------------------"+str(data) )           
         
      
