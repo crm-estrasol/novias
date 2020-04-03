@@ -117,12 +117,13 @@ class Departent_Area(models.Model):
     
     def product_areas(self,id):  
        
-        search = self.env['intelli.department.area'].search([], order='area desc, name desc')
+        search = self.env['intelli.department.area'].search([], order='area desc, style desc ,name desc')
                 
         data = []
-        for key, group in itertools.groupby(search, key=lambda x:x['area']):
+        for key, group in itertools.groupby(search, key=lambda x:( x['area'], x['style'] ) ):
             data.append({
-                            'area':key.name,
+                            'area':key[0].name,
+                            'style':key[0].style,
                             'zones': list(group)
                         
                         
