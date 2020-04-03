@@ -123,7 +123,7 @@ class Departent_Area(models.Model):
         for key, group in itertools.groupby(search, key=lambda x:( x['area'], x['style'] ) ):
             data.append({
                             'area':key[0].name,
-                            'style':key[0].style,
+                            'style':key[0].name,
                             'zones': list(group)
                         
                         
