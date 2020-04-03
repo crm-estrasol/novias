@@ -127,7 +127,7 @@ class Departent_Area(models.Model):
                             
                        }
             new_area['zones']= [    {
-                                        'name':key_z.name 
+                                        'name':key_z 
                                     }        
                                     for key_z, group_z in itertools.groupby(group, key=lambda x: x['name']  )  ]           
                         
