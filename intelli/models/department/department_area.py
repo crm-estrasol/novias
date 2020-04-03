@@ -118,6 +118,7 @@ class Departent_Area(models.Model):
     def product_areas(self,id):  
        
         search = self.env['intelli.department.area'].search([], order='area desc, zona desc')
+                Users.search([('id', 'in', expected_ids)], order='name asc, area desc').ids
         
         for key, group in itertools.groupby(search, key=lambda x:x['area']):
             _logger.info("-----------------------------------"+str(key) )           
@@ -129,6 +130,6 @@ class Departent_Area(models.Model):
                     {
                         
                             'success': 200 if search else 204,
-                            'data':data  if search else "null"
+                            'data':100  if search else "null"
                     }
                     ]
