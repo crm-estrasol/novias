@@ -4,6 +4,9 @@ _logger = logging.getLogger(__name__)
 from odoo.tools.misc import clean_context
 from odoo.exceptions import UserError, ValidationError
 import sys
+import itertools
+from operator import itemgetter
+
 class Departent_Area(models.Model):
     _name= 'intelli.department.area'
     _inherit =  ['mail.thread', 'mail.activity.mixin']
@@ -111,3 +114,21 @@ class Departent_Area(models.Model):
     def on_blind(self):
         self.with_w = 0
         self.heigth_h = 0
+    
+    def product_areas(self,id):  
+       
+        search = self.env['intelli.department.area'].search([], order='area desc, zona desc')
+        
+        for key, group in itertools.groupby(search, key=lambda x:x['area']):
+            _logger.info("-----------------------------------"+str(key) )           
+            _logger.info("-----------------------------------"+str( list(group)) )           
+        
+     
+        
+        return [  
+                    {
+                        
+                            'success': 200 if search else 204,
+                            'data':data  if search else "null"
+                    }
+                    ]
