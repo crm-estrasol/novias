@@ -127,15 +127,14 @@ class Departent_Area(models.Model):
                             'style':key[1].name,                    
                        }
             new_area['zones']= [    {
-                                        'name':key_z,
+                                        'zone':key_z,
                                         'products':[ 
                                                     {
                                                      'product_id': product.blind.id,
-                                                     'name': product.name,
                                                      'product':product.blind.name,
                                                      'price':product.blind.price,
                                                      'image':"pendiente",
-                                                     'images':"pendiente"                   
+                                                     'images':["pendiente","aaas"]                   
                                                     } for product in group_z
                                                    ]                      
                                     }        
