@@ -119,10 +119,16 @@ class Departent_Area(models.Model):
        
         search = self.env['intelli.department.area'].search([], order='area desc, name desc')
                 
-        
+        data = []
         for key, group in itertools.groupby(search, key=lambda x:x['area']):
-            _logger.info("-----------------------------------"+str(key) )           
-            _logger.info("-----------------------------------"+str( list(group)) )           
+            data.append({
+                            'area':key.name
+                            'zones': list(group)
+                        
+                        
+                        } )
+            
+        _logger.info("-----------------------------------"+str(data) )           
         
      
         
