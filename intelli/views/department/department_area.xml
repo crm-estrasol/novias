@@ -101,57 +101,8 @@
                     </div>
                     <div class="row ml-1 mr-1">
                     <label for="products_ids" string="Productos disponibles">Productos disponibles</label>
-                           <field name="products_ids" class="mt-1" string="Productos disponibles"    options="{'no_create_edit': True,'no_create': True}"   domain="[('style', '=', style)]"  context="{'tree_view_ref': 'intelli.blind_view_tree_many'}" >
-                                          <tree string="Products" class="custom_img" edit="false"  >
-                                              <field name="blind" widget='image' />
-                                            
-                                              <field name="name" />
+                           <field name="products_ids" class="mt-1" string="Productos disponibles"       domain="[('style', '=', style)]"   >
                                          
-                                              <field name="with_w" />
-                                              <field name="heigth_h" />
-                                              <field name="m2_max" />
-                                              <field name="price" />
-                                              <field name="cloth" />                
-                                              <field name="actuation" />
-                                              <field name="electronic" />
-                                              <field name="style"  invisible="1" />
-                                            </tree>
-
-                                             <form edit="0">
-                                                      <sheet>
-                                                  
-                                                          <div class="row">
-                                                            <div class="col-2" >
-                                                                <field name="blind" widget='image'  style="width:150px;"/>
-                                                              </div>   
-                                                              <div class="col-sm-10"> 
-                                                                  <group>
-                                                                        <field name="parent_tower" readonly="1" />
-                                                                        <field name="name" />
-                                                                        <field name="code" />
-                                                                        <field name="style"  readonly="1" />
-                                                                        <field name="with_w"  readonly="1" />
-                                                                        <field name="heigth_h"  readonly="1" />
-                                                                        <field name="m2_max"  readonly="1" />
-                                                                        <field name="price_size" readonly="1" />
-                                                                        <field name="price" />
-                                                                        <field name="cloth" />                
-                                                                        <field name="actuation" />
-                                                                        <field name="electronic" />
-                                                                        <label for="images" string="Imagenes"/>
-                                                                        <field name="images" class="o_website_sale_image_list" context="{'default_name': 'hola'}" mode="kanban" options="{'create_text':'Añadir imagen'}" nolabel="1"/>
-                                                                    </group>
-                                                                
-                                                            </div>
-                                                              
-                                                          </div>        
-                                                        
-                                                                
-                                                              
-                                                              
-                                                      </sheet>
-                                                    
-                                                    </form>
                                      </field>
                     </div>
                        
