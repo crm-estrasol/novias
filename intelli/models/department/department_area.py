@@ -148,21 +148,22 @@ class Departent_Area(models.Model):
         search = self.env['intelli.department.area'].search(['id','=',id], order='area asc, style asc ,name asc')
                 
         data = []
-        for key, group in itertools.groupby(search, key=lambda x:( x['area'], x['style'] ) ):
-            new_area = {
-                            'area':key[0].name,
-                        
-                            'style':key[1].name,                    
-                       }
-            new_area['zones']= [    {
-                                        'zone':key_z,
-                                        'products': self._get_products(group_z)
+        if search:
+            for key, group in itertools.groupby(search, key=lambda x:( x['area'], x['style'] ) ):
+                new_area = {
+                                'area':key[0].name,
+                            
+                                'style':key[1].name,                    
+                        }
+                new_area['zones']= [    {
+                                            'zone':key_z,
+                                            'products': self._get_products(group_z)
 
-                                    }        
-                                    for key_z, group_z in itertools.groupby(group, key=lambda x: x['name']  )  ]           
-                        
-            data.append(new_area)
-        
+                                        }        
+                                        for key_z, group_z in itertools.groupby(group, key=lambda x: x['name']  )  ]           
+                            
+                data.append(new_area)
+            
         
         data_end = {
             'areas': data,
