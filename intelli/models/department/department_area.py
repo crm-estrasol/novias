@@ -198,6 +198,20 @@ class Departent_Area(models.Model):
                                                         'image':product.blind,
                                                         'images':[ image.image for image in product.images ]                   
                                                     }  )
+            cargador = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower),'&',('electronic.name','like','Cargador'),('style.name','like','Electrónica')])
+            if cargador:
+               for product in cargador: 
+                    data_end['extra_products'].append( {
+                                                        'product_id': product.id,
+                                                        'product':product.name,
+                                                        'price':product.price,
+                                                        'style':product.style.name,
+                                                        'style_id': product.style.id,
+                                                        'electronic':product.electronic.name,
+                                                        'electronic_id': product.electronic.id,
+                                                        'image':product.blind,
+                                                        'images':[ image.image for image in product.images ]                   
+                                                    }  )
         
         else: 
            data_end =  "null"     
