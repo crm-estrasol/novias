@@ -172,7 +172,17 @@ class Departent_Area(models.Model):
             data_end['extra_products'] = []
             ctr_1 = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower),'&',('electronic.name','like','Control 1 Canal'),('style.name','like','Electrónica')])
             if ctr_1:
-                data_end['extra_products'].append( {'name':ctr_1[0].name} )
+                data_end['extra_products'].append(  {
+                                                        'product_id': ctr_1[0].id,
+                                                        'product':ctr_1[0].name,
+                                                        'price':ctr_1[0].price,
+                                                        'style':ctr_1[0].style.name,
+                                                        'style_id': ctr_1[0].style.id,
+                                                        'electronic':ctr_1[0].electronic.name,
+                                                        'electronic_id': ctr_1[0].electronic.id,
+                                                        'image':ctr_1[0].blind,
+                                                        'images':[ image.image for image in ctr_1[0].images ]                   
+                                                    } )
         else: 
            data_end =  "null"     
         
