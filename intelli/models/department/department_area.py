@@ -148,23 +148,22 @@ class Departent_Area(models.Model):
         search = self.env['intelli.department.area'].search([('parent_department.id','=',id)], order='area asc, style asc ,name asc')
                 
         data = []
-        if search:
-            for key, group in itertools.groupby(search, key=lambda x:( x['area'], x['style'] ) ):
-                new_area = {
-                                'area':key[0].name,
-                            
-                                'style':key[1].name,                    
-                        }
-                new_area['zones']= [    {
-                                            'zone':key_z,
-                                            'products': self._get_products(group_z)
+        for key, group in itertools.groupby(search, key=lambda x:( x['area'], x['style'] ) ):
+            new_area = {
+                            'area':key[0].name,
+                        
+                            'style':key[1].name,                    
+                       }
+            new_area['zones']= [    {
+                                        'zone':key_z,
+                                        'products': self._get_products(group_z)
 
-                                        }        
-                                        for key_z, group_z in itertools.groupby(group, key=lambda x: x['name']  )  ]           
-                            
-                data.append(new_area)
-            
+                                    }        
+                                    for key_z, group_z in itertools.groupby(group, key=lambda x: x['name']  )  ]           
+                        
+            data.append(new_area)
         
+        _logger.info("-----------------------------------"+str(data) )      
         data_end = {
             'areas': data,
             'extra_products':[]
@@ -172,7 +171,7 @@ class Departent_Area(models.Model):
         } if search else "null"     
         
      
-        _logger.info("-----------------------------------"+str( data_end) )
+        
         return [  
                     {
                         
@@ -189,10 +188,13 @@ class Departent_Area(models.Model):
                     {
                          'product_id': product.id,
                          'product':product.name,
-                         'price':product.price
-                                      
+                         'price':product.price,
+                         'image':product.blind,
+                         'images':[ image.image for image in product.images ]                   
                     }
                     )
                     
 
         return all_products
+          
+          
