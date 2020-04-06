@@ -182,7 +182,8 @@ class Departent_Area(models.Model):
                                                     'electronic_id': product.electronic.id,
                                                     'image':product.blind,
                                                     'images':[ image.image for image in product.images ]                   
-                                                } for product in ctr_1[0]  )
+                                                } for product in ctr_1  )
+        
         else: 
            data_end =  "null"     
         
