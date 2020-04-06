@@ -164,12 +164,17 @@ class Departent_Area(models.Model):
                         
             data.append(new_area)
         
-        _logger.info("-----------------------------------"+str(data) )      
-        data_end = {
-            'areas': data,
-            'extra_products':[]
-
-        } if search else "null"     
+        
+        if search :
+            data_end = {
+                    'areas': data, 
+                }
+            data_end['extra_products'] = []
+            ctr_1 = self.env['intelli.blind'].search(['',('parent_tower.id','=',search[0].parent_tower),'&',('electronic.name','like','Control 1 Canal'),('style.nem','like','Electrónica')])
+            if ctr_1:
+                data_end['extra_products'].append( {'name':ctr_1[0].name} )
+        else: 
+           data_end =  "null"     
         
      
         
@@ -190,6 +195,10 @@ class Departent_Area(models.Model):
                          'product_id': product.id,
                          'product':product.name,
                          'price':product.price,
+                         'style':product.style.name,
+                         'style_id': product.style.id,
+                         'electronic':product.electronic.name,
+                         'electronic_id': product.electronic.id,
                          'image':product.blind,
                          'images':[ image.image for image in product.images ]                   
                     }
@@ -197,5 +206,4 @@ class Departent_Area(models.Model):
                     
 
         return all_products
-          
           

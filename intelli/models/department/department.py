@@ -63,5 +63,7 @@ class Department(models.Model):
         if sys.getsizeof(self.map)  > 1*1000*1000:      
             raise UserError(_("Exediste el tamaño permitido (1mb/10000) para la imagen ."))
    
-   
+    @api.onchange('tower')
+    def on_tower(self):
+       self.department_areas = False 
    
