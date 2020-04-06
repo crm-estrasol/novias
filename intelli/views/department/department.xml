@@ -83,9 +83,9 @@
                                           <field name="area" />   
                                           <field name="name" />
                                           <field name="style" />  
-                                          <field name="blind"  options="{'no_create_edit': True, 'no_quick_create': True}"  domain="['&amp;',('parent_tower.id', '=', parent_tower),('style', '=', style)]" context="{'form_view_ref': 'intelli.blind_view_form_hide'}"/>                                        
-                                          <field name="with_w"  attrs="{'invisible': [('blind', '=', False)]}" />                
-                                          <field name="heigth_h"  attrs="{'invisible': [('blind', '=', False)]}" />
+                                          
+                                          <field name="with_w"   />                
+                                          <field name="heigth_h"  />
                                           <field name="fall" />
                                           <field name="control" />
                                       </tree>                                      

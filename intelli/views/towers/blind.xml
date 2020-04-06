@@ -136,12 +136,33 @@
             </kanban>
         </field>
     </record>
-
-      <record id="blind_view_tree" model="ir.ui.view">
+     <record id="blind_view_tree_many" model="ir.ui.view">
           <field name="name">tree.blind</field>
           <field name="model">intelli.blind</field>
           <field name="arch" type="xml" >
-              <tree string="Contacts" class="custom_img">
+              <tree string="Contacts" class="custom_img"  delete="0">
+                 <field name="blind" widget='image' />
+                 <field name="parent_tower" invisible="1" />
+                 <field name="name" />
+                 <field name="code" />
+                 <field name="style" />
+                 <field name="with_w" />
+                 <field name="heigth_h" />
+                  <field name="m2_max" />
+                 <field name="price_size" />
+                 <field name="price" />
+                 <field name="cloth" />                
+                 <field name="actuation" />
+                 <field name="electronic" />
+              </tree>
+          </field>
+      </record>
+      <record id="blind_view_tree" model="ir.ui.view">
+          <field name="name">tree.blind</field>
+          <field name="model">intelli.blind</field>
+          <field name="priority">1</field>
+          <field name="arch" type="xml" >
+              <tree string="Contacts" class="custom_img" >
                  <field name="blind" widget='image' />
                  <field name="parent_tower" invisible="1" />
                  <field name="name" />
@@ -216,7 +237,7 @@
           <field name="model">intelli.blind</field>
            <field name="priority">1</field>
           <field name="arch" type="xml" >
-            <form>
+            <form >
               <sheet>
                <div class="oe_button_box" name="button_box">
                   <button name="toggle_active" type="object" class="oe_stat_button" style="text-align:center; font-weight:bold;" string="Activo">

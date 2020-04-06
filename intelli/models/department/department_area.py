@@ -31,8 +31,9 @@ class Departent_Area(models.Model):
     control = fields.Many2one('intelli.control', string='Control',required=True,default=_get_control)
     parent_department = fields.Many2one('intelli.department', string='Departamento',readonly=True,ondelete='cascade' )
     parent_tower = fields.Integer(related="parent_department.tower.id")
-    blind = fields.Many2one('intelli.blind', string='Cortina',required=True )
+    #blind = fields.Many2one('intelli.blind', string='Cortina',required=True )
     style = fields.Many2one('intelli.style', string='Estilo')
+    products_ids = fields.Many2many(comodel_name='intelli.blind', relation='table_many_products', column1='blind_id', column2='')
     def button_duplicate(self):
         self.copy()
         view_id = self.env.ref('intelli.department_view_form_associate').id
@@ -57,7 +58,12 @@ class Departent_Area(models.Model):
        self.blind = False
        self.with_w = 0
        self.heigth_h = 0
-    
+       self.products_ids = False
+    @api.onchange('with_w','heigth_h')
+    def on_size(self):
+       self.products_ids = False
+  
+    """
     @api.onchange('with_w')
     def on_width(self):
         if self.with_w == 0:
@@ -85,36 +91,58 @@ class Departent_Area(models.Model):
                 'message': _('Excediste el ancho permitido, ancho maximo '+ str(self.blind.with_w)
                                     )            }
             return res
+   """
+    @api.onchange('products_ids')
+    def on_products_ids(self):
+        products_not_a =""
+        product_exced_w =""
+        product_exced_h =""
+        for product in self.products_ids:
+           
+            m2_max = self.with_w * self.heigth_h
+            if m2_max > product.m2_max:
+                res = {}
+                self.products_ids = [(3,product.id)]    
+                products_not_a += product.name+","
+            elif self.with_w > product.with_w:
+                res = {}
+                self.products_ids = [(3,product.id)]    
+                product_exced_w += product.name+","
+            elif self.heigth_h > product.heigth_h:
+                res = {}
+                self.products_ids = [(3,product.id)]    
+                product_exced_h += product.name+","
 
-    @api.onchange('heigth_h')
-    def on_heigth(self):
-        if self.heigth_h == 0:
-           return 
-        m2_max = self.with_w * self.heigth_h
-        if m2_max > self.blind.m2_max:
-            res = {}
-            self.with_w = 0
-            self.heigth_h = 0
-            
+        if  products_not_a != "":
             res['warning'] = {
-                'title': _('Error'),
-                'message': _('Excediste  M2  permitido, m2 maximo '+ str(self.blind.m2_max)
-                                )            
-                                }
+            'title': _('Error'),
+            'message': _(' Producto(s) '+products_not_a+' exceden  M2  permitido.'
+                                        )   }
             return res
-        if self.heigth_h > self.blind.heigth_h:
-            res = {}
-            self.heigth_h = 0
+        if  product_exced_w != "":
             res['warning'] = {
-                'title': _('Error'),
-                'message': _('Excediste el alto permitido, alto maximo '+ str(self.blind.heigth_h))
-            }
+            'title': _('Error'),
+            'message': _(' Producto(s) '+product_exced_w+' exceden  ancho(W)  permitido. '
+                                        )   }
             return res
-    @api.onchange('blind')
-    def on_blind(self):
-        self.with_w = 0
-        self.heigth_h = 0
-    
+        if  product_exced_h != "":
+            res['warning'] = {
+            'title': _('Error'),
+            'message': _(' Producto(s) '+product_exced_h+' exceden  alto(H) permitido. '
+                                        )   }
+            return res  
+           
+           
+            #if self.heigth_h > self.blind.heigth_h:
+            #    res = {}
+            #    self.heigth_h = 0
+            #    res['warning'] = {
+            #        'title': _('Error'),
+            #        'message': _('Excediste el alto permitido, alto maximo '+ str(self.blind.heigth_h))
+            #    }
+            #    return res
+
+
     def product_areas(self,id):  
        
         search = self.env['intelli.department.area'].search([], order='area asc, style asc ,name asc')
@@ -141,7 +169,13 @@ class Departent_Area(models.Model):
                                     for key_z, group_z in itertools.groupby(group, key=lambda x: x['name']  )  ]           
                         
             data.append(new_area)
-        _logger.info("-----------------------------------"+str(data) )           
+        
+        
+        data_end = {
+            'areas': data,
+            'extra_products':[]
+
+        } if search else "null"     
         
      
         
@@ -149,6 +183,6 @@ class Departent_Area(models.Model):
                     {
                         
                             'success': 200 if search else 204,
-                            'data':100  if search else "null"
+                            'data': data_end  if search else "null"
                     }
                     ]
