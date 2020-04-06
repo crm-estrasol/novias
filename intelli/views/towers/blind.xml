@@ -140,7 +140,6 @@
           <field name="name">tree.blind</field>
           <field name="model">intelli.blind</field>
       
-          <field name="domain">[]</field>
           <field name="arch" type="xml" >
               <tree string="Contacts" class="custom_img"  delete="0">
                  <field name="blind" widget='image' />
