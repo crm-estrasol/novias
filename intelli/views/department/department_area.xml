@@ -114,6 +114,7 @@
                                               <field name="cloth" />                
                                               <field name="actuation" />
                                               <field name="electronic" />
+                                              <field name="style"  invisible="1" />
                                             </tree>
 
                                              <form edit="0">
