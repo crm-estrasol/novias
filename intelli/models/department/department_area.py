@@ -31,6 +31,7 @@ class Departent_Area(models.Model):
     control = fields.Many2one('intelli.control', string='Control',required=True,default=_get_control)
     parent_department = fields.Many2one('intelli.department', string='Departamento',readonly=True,ondelete='cascade' )
     parent_tower = fields.Integer(related="parent_department.tower.id")
+    parent_available = fields.Many2many(related="parent_department.tower.styles_available")
     #blind = fields.Many2one('intelli.blind', string='Cortina',required=True )
     style = fields.Many2one('intelli.style', string='Estilo')
     products_ids = fields.Many2many(comodel_name='intelli.blind', relation='table_many_products', column1='blind_id', column2='', domain="['&',('parent_tower', '=', parent_tower),('style', '=', style)]")

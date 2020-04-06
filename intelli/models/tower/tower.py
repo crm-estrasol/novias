@@ -38,6 +38,7 @@ class Tower(models.Model):
     currency_id = fields.Many2one("res.currency", string="Tipo cambio",required=True,track_visibility=True)
     blinds = fields.One2many (comodel_name='intelli.blind',inverse_name='parent_tower',string="Productos")
     departments = fields.One2many (comodel_name='intelli.department',inverse_name='tower',string="Departamentos")
+    styles_available =  fields.Many2many(comodel_name='intelli.style', relation='table_search_styles', column1='style_id', column2='tower_id')
     _sql_constraints = [
         ('unique_name', 'unique (name)', 'EL nombre no debe repetirse!')
        
@@ -99,6 +100,11 @@ class Tower(models.Model):
     def on_background_picture(self):
         if sys.getsizeof(self.background_picture)  > 1*1000*1000:         
             raise UserError(_("Exediste el tamaño permitido (1mb/10000) para la imagen ."))
+    @api.onchange('blinds')
+    def on_styles_change(self):
+        self.styles_available = False
+        self.styles_available = [(6, None, [blind.style.id for blind in self.blinds ] )]
+        
     """
     def open_one2many_line(self):
         context = self.env.context
