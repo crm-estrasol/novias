@@ -33,7 +33,7 @@ class Departent_Area(models.Model):
     parent_tower = fields.Integer(related="parent_department.tower.id")
     #blind = fields.Many2one('intelli.blind', string='Cortina',required=True )
     style = fields.Many2one('intelli.style', string='Estilo')
-    products_ids = fields.Many2many(comodel_name='intelli.blind', relation='table_many_products', column1='blind_id', column2='')
+    products_ids = fields.Many2many(comodel_name='intelli.blind', relation='table_many_products', column1='blind_id', column2='', domain="['&',('parent_tower', '=', parent_tower),('style', '=', style)]")
     def button_duplicate(self):
         self.copy()
         view_id = self.env.ref('intelli.department_view_form_associate').id
