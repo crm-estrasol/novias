@@ -171,7 +171,7 @@ class Departent_Area(models.Model):
         } if search else "null"     
         
      
-        
+        _logger.info("-----------------------------------"+str( data_end) )
         return [  
                     {
                         
