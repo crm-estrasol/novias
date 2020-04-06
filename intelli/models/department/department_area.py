@@ -145,7 +145,7 @@ class Departent_Area(models.Model):
 
     def product_areas(self,id):  
        
-        search = self.env['intelli.department.area'].search(['id','=',id], order='area asc, style asc ,name asc')
+        search = self.env['intelli.department.area'].search([('id','=',id)], order='area asc, style asc ,name asc')
                 
         data = []
         if search:
