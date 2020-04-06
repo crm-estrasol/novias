@@ -170,7 +170,7 @@ class Departent_Area(models.Model):
                     'areas': data, 
                 }
             data_end['extra_products'] = []
-            ctr_1 = self.env['intelli.blind'].search(['',('parent_tower.id','=',search[0].parent_tower),'&',('electronic.name','like','Control 1 Canal'),('style.nem','like','Electrónica')])
+            ctr_1 = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower),'&',('electronic.name','like','Control 1 Canal'),('style.name','like','Electrónica')])
             if ctr_1:
                 data_end['extra_products'].append( {'name':ctr_1[0].name} )
         else: 
