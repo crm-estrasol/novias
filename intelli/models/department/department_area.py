@@ -156,12 +156,8 @@ class Departent_Area(models.Model):
                        }
             new_area['zones']= [    {
                                         'zone':key_z,
-                                        'products':[ 
-                                                    
-                                                    self._get_products(group_z)
+                                        'products': self._get_products(group_z)
 
-
-                                                   ]                      
                                     }        
                                     for key_z, group_z in itertools.groupby(group, key=lambda x: x['name']  )  ]           
                         
@@ -192,9 +188,8 @@ class Departent_Area(models.Model):
                     {
                          'product_id': product.id,
                          'product':product.name,
-                         'price':product.price,
-                         'image':product.blind,
-                         'images':[ image.image for image in product.images ]                   
+                         'price':product.price
+                                      
                     }
                     )
                     
