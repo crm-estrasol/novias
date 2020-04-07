@@ -39,4 +39,4 @@ class ResConfigSettings(models.TransientModel):
     def _compute_embed_code(self):
         for image in self:
             image.embed_code = get_video_embed_code(image.url_video)
-            #help
+            #help help
