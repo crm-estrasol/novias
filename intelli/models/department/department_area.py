@@ -231,12 +231,13 @@ class Departent_Area(models.Model):
          
         all_products = []
         for producs in group:
-            for product  in producs.products_ids:           
+            for product  in producs.products_ids:  
+                    total_product =  (product.with_w*product.heigth_h*product.price_size) + product.price         
                     all_products.append(
                     {
                          'product_id': product.id,
                          'product':product.name,
-                         'price':'{0:.2f}'.format(product.price),
+                         'price':'{0:.2f}'.format(total_product),
                          'style':product.style.name,
                          'style_id': product.style.id,
                          'electronic':product.electronic.name,
