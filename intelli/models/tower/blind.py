@@ -4,6 +4,7 @@ _logger = logging.getLogger(__name__)
 from odoo.tools.misc import clean_context
 from odoo.exceptions import UserError
 import sys
+from operator import itemgetter
 class Blind(models.Model):
     def _get_style(self):
         style = self.env['intelli.style'].search([('name', '=', 'No aplica')], limit=1)
@@ -71,12 +72,16 @@ class Blind(models.Model):
        return view 
     #WS
     def products_total(self,data_j):  
+        #data_j = sorted(data_j, key=itemgetter(1))
         data_j = data_j
         ids = [ id[0] for id in data_j  ]
+        
     
         search = self.env['intelli.blind'].search([('id','in',ids)])
-        for product in search:
-            data_j[ids.index(product['id'])].append( product)
+        
+        for product in data_j:
+            product.append( search.filtered(lambda product_l: product_l.id == product[0]) )
+
 
         data = {}
         data['total_card'] = {'iva':0,'total':9,'delivery':0,'subtotal':0}
