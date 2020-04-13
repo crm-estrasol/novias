@@ -53,7 +53,7 @@ class Blind(models.Model):
         if sys.getsizeof(self.blind)  > 1*1000*1000:      
             raise UserError(_("Exediste el tamaño permitido (1mb/10000) para la imagen ."))
     
-      #Boton
+    #Boton
     def show_blind(self):
        view_id = self.env.ref('intelli.blind_view_form').id
        context = self.env.context
@@ -69,8 +69,8 @@ class Blind(models.Model):
            
        }
        return view 
-    
-    def products_total(self,data_j):  
+    #WS
+    def products_total(self,x):  
         data_j = [[1,1],[2,3],[3,3]]
         ids = [ id[0] for id in data_j  ]
         print(ids)
