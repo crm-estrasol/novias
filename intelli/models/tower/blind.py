@@ -73,7 +73,7 @@ class Blind(models.Model):
     def products_total(self):  
         data_j = [[1,1],[2,3],[3,3]]
         ids = [ id[0] for id in data_j  ]
-        print(ids)
+    
         search = self.env['intelli.blind'].search([('id','in',ids)])
         for product in search:
             data_j[ids.index(product['id'])].append( product)
