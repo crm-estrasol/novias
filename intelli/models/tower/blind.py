@@ -110,16 +110,4 @@ class Blind(models.Model):
     
           
 
-    """
-    def open_one2many_line(self):
-        context = self.env.context
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Open Line',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': self._name,
-            'res_id': context.get('default_active_id'),
-            'target': 'new',
-        }}
-    """
+   
