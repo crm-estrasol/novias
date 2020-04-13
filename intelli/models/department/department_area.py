@@ -209,8 +209,6 @@ class Departent_Area(models.Model):
                                                         'style_id': product.style.id,
                                                         'electronic':product.electronic.name,
                                                         'electronic_id': product.electronic.id,
-                                                        'actuation':product.actuation,
-                                                        'actuation_id':product.actuation.id,
                                                         'image':product.blind,
                                                         'images':[ image.image for image in product.images ]                   
                                                     }  )
@@ -241,8 +239,6 @@ class Departent_Area(models.Model):
                          'style_id': product.style.id,
                          'electronic':product.electronic.name,
                          'electronic_id': product.electronic.id,
-                         'actuation':product.actuation,
-                         'actuation_id':product.actuation.id,
                          'image':product.blind,
                          'images':[ image.image for image in product.images ]                   
                     }
