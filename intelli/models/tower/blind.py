@@ -80,7 +80,9 @@ class Blind(models.Model):
         search = self.env['intelli.blind'].search([('id','in',ids)])
         
         for product in data_j:
-            product.append( search.filtered(lambda product_l: product_l.id == product[0]) )
+            value = search.filtered(lambda product_l: product_l.id == product[0])
+            if len(value) == 1:
+                product.append( value  )
 
 
         data = {}
