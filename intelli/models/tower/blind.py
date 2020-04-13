@@ -81,6 +81,7 @@ class Blind(models.Model):
         
         for product in data_j:
             value = search.filtered(lambda product_l: product_l.id == product[0])
+            #val
             if len(value) == 1:
                 product.append( value  )
 
