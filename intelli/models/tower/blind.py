@@ -70,7 +70,7 @@ class Blind(models.Model):
        }
        return view 
     #WS
-    def products_total(self):  
+    def products_total(self,data_j):  
         data_j = [[1,1],[2,3],[3,3]]
         ids = [ id[0] for id in data_j  ]
     
@@ -91,7 +91,7 @@ class Blind(models.Model):
                          'product_id': product[2].id,
                          'product':product[2].name,
                          'price':'{0:.2f}'.format(total_product+iva),
-                         'actuation':product[2].actuation
+                         'actuation':product[2].actuation.name
                                        
                     })     
                     data['total_card']['subtotal'] += total_product
