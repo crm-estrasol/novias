@@ -70,7 +70,7 @@ class Blind(models.Model):
        }
        return view 
     #WS
-    def products_total(self,x):  
+    def products_total(self):  
         data_j = [[1,1],[2,3],[3,3]]
         ids = [ id[0] for id in data_j  ]
         print(ids)
