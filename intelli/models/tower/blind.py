@@ -69,6 +69,46 @@ class Blind(models.Model):
            
        }
        return view 
+    
+    def products_total(self,data_j):  
+        data_j = [[1,1],[2,3],[3,3]]
+        ids = [ id[0] for id in data_j  ]
+        print(ids)
+        search = self.env['intelli.blind'].search([('id','in',ids)])
+        for product in search:
+            data_j[ids.index(product['id'])].append( product)
+
+        data = {}
+        data['total_card'] = {'iva':0,'total':9,'delivery':0,'subtotal':0}
+        data['products'] = []
+
+
+        for product in data_j:           
+              for prod in range(product[1]):  
+                    total_product =  (product[2].with_w*product[2].heigth_h*product[2].price_size) + product[2].price 
+                    iva = total_product * 0.16
+                    data['products'].append({
+                         'product_id': product[2].id,
+                         'product':product[2].name,
+                         'price':'{0:.2f}'.format(total_product+iva),
+                         'actuation':product[2].actuation
+                                       
+                    })     
+                    data['total_card']['subtotal'] += total_product
+                    data['total_card']['iva'] += iva
+
+        data['total_card']['total'] =  '{0:.2f}'.format( data['total_card']['subtotal'] +   data['total_card']['iva'] )       
+        data['total_card']['subtotal'] =  '{0:.2f}'.format( data['total_card']['subtotal'] )
+        data['total_card']['iva'] =  '{0:.2f}'.format( data['total_card']['iva'] )
+        return [  
+                    {
+                        
+                            'success': 200 if search else 204,
+                            'data': data  if search else "null"
+                    }
+                    ]
+    
+          
 
     """
     def open_one2many_line(self):
