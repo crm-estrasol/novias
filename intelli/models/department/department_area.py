@@ -169,6 +169,7 @@ class Departent_Area(models.Model):
             data_end = {
                     'areas': data, 
                 }
+            data_end['map'] = search[0].parent_department.map   
             data_end['extra_products'] = []
             ctr_1 = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower),'&',('electronic.name','like','Control 1 Canal'),('style.name','like','Electrónica')])
             if ctr_1:
