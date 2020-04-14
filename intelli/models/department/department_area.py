@@ -143,7 +143,7 @@ class Departent_Area(models.Model):
             #    }
             #    return res
 
-
+    #WS
     def product_areas(self,id):  
        
         search = self.env['intelli.department.area'].search([('parent_department.id','=',id)], order='area asc, style asc ,name asc')
@@ -202,6 +202,22 @@ class Departent_Area(models.Model):
             cargador = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower),'&',('electronic.name','like','Cargador'),('style.name','like','Electrónica')])
             if cargador:
                for product in cargador: 
+                    data_end['extra_products'].append( {
+                                                        'product_id': product.id,
+                                                        'product':product.name,
+                                                        'price':'{0:.2f}'.format(product.price),
+                                                        'style':product.style.name,
+                                                        'style_id': product.style.id,
+                                                        'electronic':product.electronic.name,
+                                                        'electronic_id': product.electronic.id,
+                                                        'actuation':product.actuation.name,
+                                                        'actuation_id':product.actuation.id,
+                                                        'image':product.blind,
+                                                        'images':[ image.image for image in product.images ]                   
+                                                    }  )
+            inteo = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower),'&',('electronic.name','like','Interfase'),('style.name','like','Electrónica')])
+            if inteo:
+               for product in inteo: 
                     data_end['extra_products'].append( {
                                                         'product_id': product.id,
                                                         'product':product.name,
