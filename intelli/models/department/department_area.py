@@ -221,7 +221,7 @@ class Departent_Area(models.Model):
                     data_end['extra_products'].append( {
                                                         'product_id': product.id,
                                                         'product':product.name,
-                                                        'price':'{0:.2f}'.format(product.price),
+                                                        'price':'{0:,.2f}'.format(product.price),
                                                         'style':product.style.name,
                                                         'style_id': product.style.id,
                                                         'electronic':product.electronic.name,
@@ -254,7 +254,7 @@ class Departent_Area(models.Model):
                     {
                          'product_id': product.id,
                          'product':product.name,
-                         'price':'{0:.2f}'.format(total_product),
+                         'price':'{0:,.2f}'.format(total_product),
                          'style':product.style.name,
                          'style_id': product.style.id,
                          'electronic':product.electronic.name,
