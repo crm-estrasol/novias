@@ -139,6 +139,7 @@
                                        
                                         <field name="area" />   
                                         <field name="name" />
+                                        <field name="style" />
                                         <field name="with_w" />                
                                         <field name="heigth_h" />
                                         <field name="fall" />

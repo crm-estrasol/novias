@@ -60,6 +60,7 @@
                  <field name="name" />
                  <field name="with_w" />                
                  <field name="heigth_h" />
+                 <field name="style" />
                  <field name="fall" />
                  <field name="control" />
                  <button name="button_duplicate_no_open" string="Duplicar" type="object"/>  
