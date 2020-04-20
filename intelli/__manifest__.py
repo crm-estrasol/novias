@@ -20,7 +20,7 @@
 
     # any module necessary for this one to work correctly
     'depends': ['base','base_setup','web','mail'],
-
+    #.
     # always loaded
     'data': [
       'security/security.xml',
