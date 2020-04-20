@@ -6,6 +6,7 @@ from odoo.exceptions import UserError, ValidationError
 import sys
 import itertools
 from operator import itemgetter
+import functools 
 
 class Departent_Area(models.Model):
     _name= 'intelli.department.area'
