@@ -123,8 +123,8 @@ class Blind(models.Model):
         instalation_price = search[0].parent_tower.instalation_price * count_products
         data['total_card']['instalation_price'] = '{0:,.2f}'.format( instalation_price )
         
-        #data['total_card']['total_delivery'] = '{0:,.2f}'.format( data['total_card']['subtotal'] +   data['total_card']['iva'] + delivery_price)
-        #data['total_card']['total_instalation'] =  '{0:,.2f}'.format( data['total_card']['subtotal'] +   data['total_card']['iva'] + instalation_price)
+        data['total_card']['total_delivery'] = '{0:,.2f}'.format( int(data['total_card']['subtotal'])+   int(data['total_card']['iva']) + delivery_price)
+        data['total_card']['total_instalation'] =  '{0:,.2f}'.format( int(data['total_card']['subtotal']) +   int(data['total_card']['iva']) + instalation_price)
         return [  
                     {
                         
