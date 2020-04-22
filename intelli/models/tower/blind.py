@@ -117,8 +117,8 @@ class Blind(models.Model):
         data['total_card']['total'] =  '{0:,.2f}'.format( data['total_card']['subtotal'] +   data['total_card']['iva'] )       
         data['total_card']['subtotal'] =  '{0:,.2f}'.format( data['total_card']['subtotal'] )
         data['total_card']['iva'] =  '{0:,.2f}'.format( data['total_card']['iva'] )
-        data['delivery_price'] =  '{0:,.2f}'.format( search[0].parent_tower.delivery_price * count_products )
-        data['instalation_price'] = '{0:,.2f}'.format( search[0].parent_tower.instalation_price * count_products )
+        data['total_card']['delivery_price'] =  '{0:,.2f}'.format( search[0].parent_tower.delivery_price * count_products )
+        data['total_card']['instalation_price'] = '{0:,.2f}'.format( search[0].parent_tower.instalation_price * count_products )
 
         return [  
                     {
