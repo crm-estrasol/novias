@@ -101,7 +101,7 @@ class Blind(models.Model):
                     key  ='extra_products' if value.name.upper() in options_avaible and value.style.name == 'Electrónica' else 'products'
                     
                     total_product =  ( (value.with_w*value.heigth_h*value.price_size) + value.price ) *product[1]
-                    count_products += product[1]
+                    count_products += product[1] if key == "products" else 0
                     iva = total_product * 0.16
                     data[key].append({
                          'product_id': value.id,
