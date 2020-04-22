@@ -113,18 +113,20 @@ class Blind(models.Model):
                     data['total_card']['subtotal'] += total_product
                     data['total_card']['iva'] += iva
                     #products.append( (value,product[1])  )
-
-        data['total_card']['total'] =  '{0:,.2f}'.format( data['total_card']['subtotal'] +   data['total_card']['iva'] )       
-        data['total_card']['subtotal'] =  '{0:,.2f}'.format( data['total_card']['subtotal'] )
-        data['total_card']['iva'] =  '{0:,.2f}'.format( data['total_card']['iva'] )
+        subtotal = data['total_card']['subtotal']
+        iva = data['total_card']['iva']
+        total = subtotal + iva
+        data['total_card']['total'] =  '{0:,.2f}'.format( total )        
+        data['total_card']['subtotal'] =  '{0:,.2f}'.format( subtotal )
+        data['total_card']['iva'] =  '{0:,.2f}'.format( iva)
         
         delivery_price = search[0].parent_tower.delivery_price * count_products
         data['total_card']['delivery_price'] =  '{0:,.2f}'.format( delivery_price )
         instalation_price = search[0].parent_tower.instalation_price * count_products
         data['total_card']['instalation_price'] = '{0:,.2f}'.format( instalation_price )
         
-        data['total_card']['total_delivery'] = '{0:,.2f}'.format( int(data['total_card']['subtotal'])+   int(data['total_card']['iva']) + delivery_price)
-        data['total_card']['total_instalation'] =  '{0:,.2f}'.format( int(data['total_card']['subtotal']) +   int(data['total_card']['iva']) + instalation_price)
+        data['total_card']['total_delivery'] = '{0:,.2f}'.format( total+delivery_price)
+        data['total_card']['total_instalation'] =  '{0:,.2f}'.format( total +   data['total_card']['iva'] + instalation_price)
         return [  
                     {
                         
