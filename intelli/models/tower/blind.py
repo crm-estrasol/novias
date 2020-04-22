@@ -126,7 +126,7 @@ class Blind(models.Model):
         data['total_card']['instalation_price'] = '{0:,.2f}'.format( instalation_price )
         
         data['total_card']['total_delivery'] = '{0:,.2f}'.format( total+delivery_price)
-        data['total_card']['total_instalation'] =  '{0:,.2f}'.format( total +   data['total_card']['iva'] + instalation_price)
+        data['total_card']['total_instalation'] =  '{0:,.2f}'.format( total + instalation_price)
         return [  
                     {
                         
