@@ -39,6 +39,7 @@ class Tower(models.Model):
     blinds = fields.One2many (comodel_name='intelli.blind',inverse_name='parent_tower',string="Productos")
     departments = fields.One2many (comodel_name='intelli.department',inverse_name='tower',string="Departamentos")
     styles_available =  fields.Many2many(comodel_name='intelli.style', relation='table_search_styles', column1='style_id', column2='tower_id')
+    
     _sql_constraints = [
         ('unique_name', 'unique (name)', 'EL nombre no debe repetirse!')
        
