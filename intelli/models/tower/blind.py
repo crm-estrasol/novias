@@ -90,8 +90,7 @@ class Blind(models.Model):
         data['total_card'] = {'iva':0,'total':9,'delivery':0,'subtotal':0}
         data['products'] = []
         data['extra_products'] = []   
-        data['delivery_price'] = 0
-        data['instalation_price'] = 0
+      
 
         options_avaible =   [x.upper() for x in ['Control 1 Canal','Control 5 Canales','Cargador','Interfase'] ]
         count_products = 0
