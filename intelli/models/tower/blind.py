@@ -90,8 +90,9 @@ class Blind(models.Model):
         data['total_card'] = {'iva':0,'total':9,'delivery':0,'subtotal':0}
         data['products'] = []
         data['extra_products'] = []   
-      
-
+        data['video'] = self.env['ir.config_parameter'].sudo().get_param('intelli.url_video')
+        data['pilicy'] = self.env['ir.config_parameter'].sudo().get_param('intelli.description')
+  
         options_avaible =   [x.upper() for x in ['Control 1 Canal','Control 5 Canales','Cargador','Interfase'] ]
         count_products = 0
         for product in group_data:
@@ -126,6 +127,8 @@ class Blind(models.Model):
         
         data['total_card']['total_delivery'] = '{0:,.2f}'.format( total+delivery_price)
         data['total_card']['total_instalation'] =  '{0:,.2f}'.format( total + instalation_price)
+
+        
         return [  
                     {
                         
