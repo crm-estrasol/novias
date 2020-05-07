@@ -103,7 +103,7 @@
                     </div>
                     <div class="row ml-1 mr-1">
                     <label for="products_ids" string="Productos disponibles">Productos disponibles</label>
-                           <field name="products_ids" class="mt-1" string="Productos disponibles"    options="{'no_create_edit': True,'no_create': True}"    context="{'tree_view_ref': 'intelli.blind_view_tree_many'}" >
+                           <field name="products_ids" class="mt-1" string="Productos disponibles"    options="{'no_create_edit': True,'no_create': True}"    context="{'tree_view_ref': 'intelli.blind_view_tree_many'}" required="True" >
                                           <tree string="Products" class="custom_img" edit="false"  >
                                               <field name="blind" widget='image' />
                                             
