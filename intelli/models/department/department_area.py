@@ -57,43 +57,40 @@ class Departent_Area(models.Model):
    
     @api.onchange('style')
     def on_image(self):
-       self.blind = False
-       self.with_w = 0
-       self.heigth_h = 0
-       self.products_ids = False
+       #self.blind = False
+       #self.with_w = 0
+       #self.heigth_h = 0
+       #self.products_ids = False
+       if self.products_ids:    
+            for product in self.products_ids:
+                m2_max = self.with_w * self.heigth_h
+                if m2_max > product.m2_max or product.style != style :
+                    self.products_ids = [(3,product.id)]    
+                  
+                elif self.with_w > product.with_w or product.style != style:
+                    self.products_ids = [(3,product.id)]    
+                   
+                elif self.heigth_h > product.heigth_h or product.style != style:      
+                    self.products_ids = [(3,product.id)]
     @api.onchange('with_w','heigth_h')
     def on_size(self):
-       self.products_ids = False
-  
-    """
-    @api.onchange('with_w')
-    def on_width(self):
-        if self.with_w == 0:
-           return 
-        m2_max = self.with_w * self.heigth_h
-        if m2_max > self.blind.m2_max:
-            res = {}
-            self.with_w = 0
-            self.heigth_h = 0
-            
-            res['warning'] = {
-                'title': _('Error'),
-                'message': _('Excediste  M2  permitido, m2 maximo '+ str(self.blind.m2_max)
-                                )            
-                                }
-            return res
-
-        if self.with_w > self.blind.with_w:
-            res = {}
-            self.with_w = 0
+        if self.products_ids:
            
-            
-            res['warning'] = {
-                'title': _('Error'),
-                'message': _('Excediste el ancho permitido, ancho maximo '+ str(self.blind.with_w)
-                                    )            }
-            return res
-   """
+            for product in self.products_ids:
+                m2_max = self.with_w * self.heigth_h
+                if m2_max > product.m2_max:
+                    self.products_ids = [(3,product.id)]    
+                  
+                elif self.with_w > product.with_w:
+                    self.products_ids = [(3,product.id)]    
+                   
+                elif self.heigth_h > product.heigth_h:      
+                    self.products_ids = [(3,product.id)]    
+                       
+
+                    
+   
+   
     @api.onchange('products_ids')
     def on_products_ids(self):
         products_not_a =""
