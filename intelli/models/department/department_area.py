@@ -64,13 +64,13 @@ class Departent_Area(models.Model):
        if self.products_ids:    
             for product in self.products_ids:
                 m2_max = self.with_w * self.heigth_h
-                if m2_max > product.m2_max or product.style != style :
+                if m2_max > product.m2_max or product.style != self.style :
                     self.products_ids = [(3,product.id)]    
                   
-                elif self.with_w > product.with_w or product.style != style:
+                elif self.with_w > product.with_w or product.style != self.style:
                     self.products_ids = [(3,product.id)]    
                    
-                elif self.heigth_h > product.heigth_h or product.style != style:      
+                elif self.heigth_h > product.heigth_h or product.style != self.style:      
                     self.products_ids = [(3,product.id)]
     @api.onchange('with_w','heigth_h')
     def on_size(self):
