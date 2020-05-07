@@ -141,8 +141,8 @@ class Departent_Area(models.Model):
             'title': _('Error'),
             'message': _(' Producto(s) '+product_exced_h+' exceden  alto(H) permitido. '
                                         )   }
-            self.flag = "1" if  self.products_ids else False                           
             return res  
+        self.flag = "1" if  self.products_ids else False                           
            
            
             #if self.heigth_h > self.blind.heigth_h:
