@@ -24,18 +24,18 @@ class Departent_Area(models.Model):
              control = self.env['intelli.control'].create({'name':"No aplica"})
         return control.id
     active = fields.Boolean('Active', default=True, track_visibility=True)
-    name = fields.Char("Zona",track_visibility=True, required=True)
-    with_w = fields.Float("Ancho",digits=(16, 2),track_visibility=True)
-    heigth_h = fields.Float("Alto",digits=(16, 2),track_visibility=True) 
+    name = fields.Char("Ventana",track_visibility=True, required=True)
+    with_w = fields.Float("Ancho",digits=(16, 3),track_visibility=True)
+    heigth_h = fields.Float("Alto",digits=(16, 3),track_visibility=True) 
     area = fields.Many2one('intelli.area', string='Area',required=True)
-    fall = fields.Many2one('intelli.fall', string='Caída',required=True,default=_get_fall)
+    fall = fields.Many2one('intelli.fall', string='Caía',required=True,default=_get_fall)
     control = fields.Many2one('intelli.control', string='Control',required=True,default=_get_control)
     parent_department = fields.Many2one('intelli.department', string='Departamento',readonly=True,ondelete='cascade' )
     parent_tower = fields.Integer(related="parent_department.tower.id")
     parent_available = fields.Many2many(related="parent_department.tower.styles_available")
     #blind = fields.Many2one('intelli.blind', string='Cortina',required=True )
     style = fields.Many2one('intelli.style', string='Estilo')
-    products_ids = fields.Many2many(comodel_name='intelli.blind', relation='table_many_products', column1='blind_id', column2='', domain="['&',('parent_tower', '=', parent_tower),('style', '=', style)]")
+    products_ids = fields.Many2many(comodel_name='intelli.blind', required=True,relation='table_many_products', column1='blind_id', column2='', domain="['&',('parent_tower', '=', parent_tower),('style', '=', style)]")
     def button_duplicate(self):
         self.copy()
         view_id = self.env.ref('intelli.department_view_form_associate').id

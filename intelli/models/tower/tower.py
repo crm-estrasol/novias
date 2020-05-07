@@ -27,10 +27,10 @@ class Tower(models.Model):
     tower_latitude = fields.Float(string='Geo Latitude', digits=(16, 5))
     tower_longitude = fields.Float(string='Geo Longitude', digits=(16, 5))
     #
-    instalation_price = fields.Float("Instalación por pieza",digits=(16, 2),track_visibility=True)
-    delivery_price = fields.Float("Envio por pieza",digits=(16, 2),track_visibility=True)
+    instalation_price = fields.Float("Instalación por pieza",digits=(16, 3),track_visibility=True)
+    delivery_price = fields.Float("Envio por pieza",digits=(16, 3),track_visibility=True)
     password = fields.Char("Contrato",track_visibility=True, size=20, required=True)
-    tower_picture = fields.Image("Imagen torre",required=True,track_visibility=True)
+    tower_picture = fields.Image("Producto autorizado",required=True,track_visibility=True)
     background_picture = fields.Image("Imagen fondo",required=True,track_visibility=True)
     logo = fields.Image("Logo",track_visibility=True)
     agent = fields.Many2one('res.partner', string='Agente', index=True,required=True)

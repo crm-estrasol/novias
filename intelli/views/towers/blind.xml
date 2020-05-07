@@ -142,8 +142,8 @@
       
           <field name="arch" type="xml" >
               <tree string="Contacts" class="custom_img"  delete="0">
-                 <field name="blind" widget='image' />
                  <field name="parent_tower" />
+                 <field name="blind" widget='image' />
                  <field name="name" />
                  <field name="code" />
                  <field name="style" />
@@ -164,8 +164,8 @@
           <field name="priority">1</field>
           <field name="arch" type="xml" >
               <tree string="Contacts" class="custom_img" >
+                 <field name="parent_tower"  />
                  <field name="blind" widget='image' />
-                 <field name="parent_tower" invisible="1" />
                  <field name="name" />
                  <field name="code" />
                  <field name="style" />
