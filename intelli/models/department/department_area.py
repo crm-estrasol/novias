@@ -73,9 +73,9 @@ class Departent_Area(models.Model):
                    
                 elif self.heigth_h > product.heigth_h or product.style != self.style:      
                     self.products_ids = [(3,product.id)]
-            self.flag = 1
+            self.flag = 1 if  self.products_ids else False 
        else:
-             self.flag = False
+             self.flag = 1 if  self.products_ids else False
     @api.onchange('with_w','heigth_h')
     def on_size(self):
         if self.products_ids:
@@ -90,9 +90,9 @@ class Departent_Area(models.Model):
                    
                 elif self.heigth_h > product.heigth_h:      
                     self.products_ids = [(3,product.id)]    
-            self.flag = 1
+            self.flag = 1 if  self.products_ids else False
         else:
-            self.flag = False
+            self.flag = 1 if  self.products_ids else False
 
 
                        
@@ -122,21 +122,21 @@ class Departent_Area(models.Model):
                 product_exced_h += product.name+","
 
         if  products_not_a != "":
-            self.flag = False
+            self.flag = 1 if  self.products_ids else False
             res['warning'] = {
             'title': _('Error'),
             'message': _(' Producto(s) '+products_not_a+' exceden  M2  permitido.'
                                         )   }
             return res
         if  product_exced_w != "":
-             self.flag = False
+             self.flag = 1 if  self.products_ids else False
             res['warning'] = {
             'title': _('Error'),
             'message': _(' Producto(s) '+product_exced_w+' exceden  ancho(W)  permitido. '
                                         )   }
             return res
         if  product_exced_h != "":
-            self.flag = False
+            self.flag = 1 if  self.products_ids else False
             res['warning'] = {
             'title': _('Error'),
             'message': _(' Producto(s) '+product_exced_h+' exceden  alto(H) permitido. '
