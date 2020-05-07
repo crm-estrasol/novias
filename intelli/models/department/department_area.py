@@ -86,6 +86,8 @@ class Departent_Area(models.Model):
                    
                 elif self.heigth_h > product.heigth_h:      
                     self.products_ids = [(3,product.id)]    
+
+                    
                        
 
                     
