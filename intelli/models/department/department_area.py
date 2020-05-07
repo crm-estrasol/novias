@@ -36,6 +36,7 @@ class Departent_Area(models.Model):
     #blind = fields.Many2one('intelli.blind', string='Cortina',required=True )
     style = fields.Many2one('intelli.style', string='Estilo')
     products_ids = fields.Many2many(comodel_name='intelli.blind', required=True,relation='table_many_products', column1='blind_id', column2='', domain="['&',('parent_tower', '=', parent_tower),('style', '=', style)]")
+    flag = fields.Integer("Productos", required=True)
     def button_duplicate(self):
         self.copy()
         view_id = self.env.ref('intelli.department_view_form_associate').id
@@ -72,6 +73,9 @@ class Departent_Area(models.Model):
                    
                 elif self.heigth_h > product.heigth_h or product.style != self.style:      
                     self.products_ids = [(3,product.id)]
+            self.flag = 1
+       else:
+             self.flag = False
     @api.onchange('with_w','heigth_h')
     def on_size(self):
         if self.products_ids:
@@ -86,8 +90,11 @@ class Departent_Area(models.Model):
                    
                 elif self.heigth_h > product.heigth_h:      
                     self.products_ids = [(3,product.id)]    
+            self.flag = 1
+        else:
+            self.flag = False
 
-                    
+
                        
 
                     
@@ -115,22 +122,26 @@ class Departent_Area(models.Model):
                 product_exced_h += product.name+","
 
         if  products_not_a != "":
+            self.flag = False
             res['warning'] = {
             'title': _('Error'),
             'message': _(' Producto(s) '+products_not_a+' exceden  M2  permitido.'
                                         )   }
             return res
         if  product_exced_w != "":
+             self.flag = False
             res['warning'] = {
             'title': _('Error'),
             'message': _(' Producto(s) '+product_exced_w+' exceden  ancho(W)  permitido. '
                                         )   }
             return res
         if  product_exced_h != "":
+            self.flag = False
             res['warning'] = {
             'title': _('Error'),
             'message': _(' Producto(s) '+product_exced_h+' exceden  alto(H) permitido. '
                                         )   }
+            self.flag =  1 if  self.products_ids else False                           
             return res  
            
            
