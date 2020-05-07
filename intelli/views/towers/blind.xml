@@ -143,7 +143,7 @@
           <field name="arch" type="xml" >
               <tree string="Contacts" class="custom_img"  delete="0">
                  <field name="blind" widget='image' />
-                 <field name="parent_tower" invisible="1" />
+                 <field name="parent_tower" />
                  <field name="name" />
                  <field name="code" />
                  <field name="style" />

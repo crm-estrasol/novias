@@ -40,11 +40,7 @@ class Tower(models.Model):
     departments = fields.One2many (comodel_name='intelli.department',inverse_name='tower',string="Departamentos")
     styles_available =  fields.Many2many(comodel_name='intelli.style', relation='table_search_styles', column1='style_id', column2='tower_id')
     
-    _sql_constraints = [
-        ('unique_name', 'unique (name)', 'EL nombre no debe repetirse!')
-       
-    ]
-
+ 
     #Boton
     def button_blinds(self):
        view_id = self.env.ref('intelli.tower_view_form_associate').id
