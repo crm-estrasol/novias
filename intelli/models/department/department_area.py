@@ -129,7 +129,7 @@ class Departent_Area(models.Model):
                                         )   }
             return res
         if  product_exced_w != "":
-             self.flag = 1 if  self.products_ids else False
+            self.flag = 1 if  self.products_ids else False
             res['warning'] = {
             'title': _('Error'),
             'message': _(' Producto(s) '+product_exced_w+' exceden  ancho(W)  permitido. '
