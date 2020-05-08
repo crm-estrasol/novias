@@ -25,6 +25,9 @@ class Department(models.Model):
     #    ('unique_name_', 'unique (name)', 'EL nombre no debe repetirse!')
     #   
     #]
+    _sql_constraints = [
+        ('name_tower', 'unique ( name, tower)', 'No se puede tener torre y departamento con el mismo nombre'),
+    ]
 
     #Boton
     def button_areas(self):
@@ -57,7 +60,8 @@ class Department(models.Model):
     def button_duplicate(self):
        self.copy()
 
-    def write(self,vals):
+    """   
+     def write(self,vals):
         if 'name' in vals:
             duplicate = self.env['intelli.department'].search(['&',('tower','=',self.tower.id),('name','=',vals['name'])] )
             if duplicate:
@@ -69,6 +73,7 @@ class Department(models.Model):
             if duplicate:
                  raise UserError(_("Existe departamento con el mismo nombre.")) 
         return super(Department, self).create(vals)
+    """
     @api.onchange('map')
     def on_image(self):
         if sys.getsizeof(self.map)  > 1*1000*1000:      
