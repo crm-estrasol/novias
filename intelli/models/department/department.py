@@ -59,7 +59,7 @@ class Department(models.Model):
 
     def write(self,vals):
         if 'name' in vals:
-            duplicate = self.env['intelli.department'].search(['&',('tower','=',self.tower),('name','=',vals['name'])] )
+            duplicate = self.env['intelli.department'].search(['&',('tower','=',self.tower.id),('name','=',vals['name'])] )
             if duplicate:
                  raise UserError(_("Existe departamento con el mismo nombre."))   
         return super(Department, self).write(vals)
