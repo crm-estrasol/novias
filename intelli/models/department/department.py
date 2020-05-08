@@ -21,10 +21,10 @@ class Department(models.Model):
     instalation = fields.Many2one('intelli.instalation', string='Instalación', required=True, default=_get_instalation)
     tower = fields.Many2one('intelli.tower', string='Torre', required=True,ondelete='cascade')
     department_areas = fields.One2many (comodel_name='intelli.department.area',inverse_name='parent_department',string="Areas")
-    _sql_constraints = [
-        ('unique_name_', 'unique (name)', 'EL nombre no debe repetirse!')
-       
-    ]
+    #_sql_constraints = [
+    #    ('unique_name_', 'unique (name)', 'EL nombre no debe repetirse!')
+    #   
+    #]
 
     #Boton
     def button_areas(self):

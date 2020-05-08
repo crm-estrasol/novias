@@ -77,9 +77,9 @@
                                      <tree
                                           string="Areas"       
                                       >   
-                                          
+                                          <field name="parent_tower"  />   
                                            <field name="parent_department" />
-                                          <field name="parent_tower" invisible="1" />
+                                       
                                           <field name="area" />   
                                           <field name="name" />
                                           <field name="style" />  
@@ -136,6 +136,8 @@
                                      <tree 
                                           string="Areas"    
                                       >
+                                        
+                                         
                                        
                                         <field name="area" />   
                                         <field name="name" />
