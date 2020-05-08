@@ -57,7 +57,18 @@ class Department(models.Model):
     def button_duplicate(self):
        self.copy()
 
-
+    def write(self,vals):
+        if 'name' in vals:
+            duplicate = self.env['intelli.department'].search(['&',('tower','=',self.tower),('name','=',vals['name'])] )
+            if duplicate:
+                 raise UserError(_("Existe departamento con el mismo nombre."))   
+        return super(Department, self).write(vals)
+    def create(self,vals):
+        if 'name' in vals:
+            duplicate = self.env['intelli.department'].search(['&',('tower','=',vals['tower']),('name','=',vals['name'])] )
+            if duplicate:
+                 raise UserError(_("Existe departamento con el mismo nombre.")) 
+        return super(Department, self).create(vals)
     @api.onchange('map')
     def on_image(self):
         if sys.getsizeof(self.map)  > 1*1000*1000:      
