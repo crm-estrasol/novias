@@ -178,7 +178,7 @@ class Departent_Area(models.Model):
                 }
             data_end['map'] = search[0].parent_department.map   
             data_end['extra_products'] = []
-            ctr_1 = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower),'&',('electronic.name','like','Control 1 Canal'),('style.name','like','Electrónica')])
+            ctr_1 = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower.id),'&',('electronic.name','like','Control 1 Canal'),('style.name','like','Electrónica')])
             if ctr_1:
                for product in ctr_1: 
                     data_end['extra_products'].append( {
@@ -192,7 +192,7 @@ class Departent_Area(models.Model):
                                                         'image':product.blind,
                                                         'images':[ image.image for image in product.images ]                   
                                                     }  )
-            ctr_2 = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower),'&',('electronic.name','like','Control 5 Canales'),('style.name','like','Electrónica')])
+            ctr_2 = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower.id),'&',('electronic.name','like','Control 5 Canales'),('style.name','like','Electrónica')])
             if ctr_2:
                for product in ctr_2: 
                     data_end['extra_products'].append( {
@@ -206,7 +206,7 @@ class Departent_Area(models.Model):
                                                         'image':product.blind,
                                                         'images':[ image.image for image in product.images ]                   
                                                     }  )
-            cargador = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower),'&',('electronic.name','like','Cargador'),('style.name','like','Electrónica')])
+            cargador = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower.id),'&',('electronic.name','like','Cargador'),('style.name','like','Electrónica')])
             if cargador:
                for product in cargador: 
                     data_end['extra_products'].append( {
@@ -222,7 +222,7 @@ class Departent_Area(models.Model):
                                                         'image':product.blind,
                                                         'images':[ image.image for image in product.images ]                   
                                                     }  )
-            inteo = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower),'&',('electronic.name','like','Interfase'),('style.name','like','Electrónica')])
+            inteo = self.env['intelli.blind'].search(['&',('parent_tower.id','=',search[0].parent_tower.id),'&',('electronic.name','like','Interfase'),('style.name','like','Electrónica')])
             if inteo:
                for product in inteo: 
                     data_end['extra_products'].append( {
