@@ -55,7 +55,7 @@
           <field name="model">intelli.department.area</field>
           <field name="arch" type="xml" >
               <tree string="Areas">
-               <field name="parent_tower" />
+            
                 <field name="parent_department" />
                 <field name="area" />   
                  <field name="name" />
