@@ -31,7 +31,7 @@ class Departent_Area(models.Model):
     fall = fields.Many2one('intelli.fall', string='Caída',required=True,default=_get_fall)
     control = fields.Many2one('intelli.control', string='Control',required=True,default=_get_control)
     parent_department = fields.Many2one('intelli.department', string='Departamento',readonly=True,ondelete='cascade' )
-    parent_tower = fields.Integer(related="parent_department.tower.id")
+    parent_tower =  fields.Many2one(related="parent_department.tower")
     
     
 
