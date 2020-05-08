@@ -16,6 +16,11 @@
                 <separator/>
                 <field name="parent_department"/>
                 <separator/>
+
+                <filter string="Torre" name="parent_tower" />
+                <separator/>
+                <field name="parent_tower"/>
+                <separator/>
               
                 <filter string="Area" name="area" />
                 <separator/>
