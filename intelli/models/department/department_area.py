@@ -255,10 +255,13 @@ class Departent_Area(models.Model):
          
         all_products = []
         for producs in group:
+            parent_department = producs.id
             for product  in producs.products_ids:  
-                    total_product =  (product.with_w*product.heigth_h*product.price_size) + product.price         
+                    total_product =  (products.with_w*products.heigth_h*product.price_size) + product.price         
                     all_products.append(
-                    {
+                    {  
+                         'parent_department_area':  parent_department  ,  
+                        
                          'product_id': product.id,
                          'product':product.name,
                          'price':'{0:,.2f}'.format(total_product),

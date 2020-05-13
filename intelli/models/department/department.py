@@ -82,4 +82,3 @@ class Department(models.Model):
     @api.onchange('tower')
     def on_tower(self):
        self.department_areas = False 
-   
