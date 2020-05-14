@@ -182,6 +182,7 @@ class Departent_Area(models.Model):
             if ctr_1:
                for product in ctr_1: 
                     data_end['extra_products'].append( {
+                                                        'parent_department_area': -1  , 
                                                         'product_id': product.id,
                                                         'product':product.name,
                                                         'price': '{0:.2f}'.format(product.price),
@@ -196,6 +197,7 @@ class Departent_Area(models.Model):
             if ctr_2:
                for product in ctr_2: 
                     data_end['extra_products'].append( {
+                                                        'parent_department_area': -1  , 
                                                         'product_id': product.id,
                                                         'product':product.name,
                                                         'price':'{0:.2f}'.format(product.price),
@@ -210,6 +212,7 @@ class Departent_Area(models.Model):
             if cargador:
                for product in cargador: 
                     data_end['extra_products'].append( {
+                                                        'parent_department_area': -1  , 
                                                         'product_id': product.id,
                                                         'product':product.name,
                                                         'price':'{0:.2f}'.format(product.price),
@@ -226,6 +229,7 @@ class Departent_Area(models.Model):
             if inteo:
                for product in inteo: 
                     data_end['extra_products'].append( {
+                                                        'parent_department_area': -1  , 
                                                         'product_id': product.id,
                                                         'product':product.name,
                                                         'price':'{0:,.2f}'.format(product.price),
