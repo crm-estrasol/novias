@@ -94,7 +94,7 @@ class Blind(models.Model):
         for product in group_data:
             id = product[0][1]
             id_product =  product[0][0]
-            depa_area = self.env['intelli.department.area'].search([('id','=',id)])
+            #depa_area = self.env['intelli.department.area'].search([('id','=',id)])
             if id != -1:
                 depa_area = self.env['intelli.department.area'].search([('id','=',id)])
                 product_r = depa_area.products_ids.filtered(lambda x: x.id == id_product)
