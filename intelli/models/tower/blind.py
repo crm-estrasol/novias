@@ -114,7 +114,7 @@ class Blind(models.Model):
                      'actuation':product_r.actuation.name,
                       'quantity':product[1]                  
                 })     
-                 data['total_card']['subtotal'] += total_product
+                data['total_card']['subtotal'] += total_product
                 data['total_card']['iva'] += iva
                    
         subtotal = data['total_card']['subtotal']
