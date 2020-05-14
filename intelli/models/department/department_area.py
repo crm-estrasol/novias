@@ -261,7 +261,6 @@ class Departent_Area(models.Model):
                     all_products.append(
                     {  
                          'parent_department_area':  parent_department  ,  
-                        
                          'product_id': product.id,
                          'product':product.name,
                          'price':'{0:,.2f}'.format(total_product),

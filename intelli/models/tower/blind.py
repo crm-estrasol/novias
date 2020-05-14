@@ -6,6 +6,7 @@ from odoo.exceptions import UserError
 import sys
 from operator import itemgetter
 import itertools
+import operator
 class Blind(models.Model):
     def _get_style(self):
         style = self.env['intelli.style'].search([('name', '=', 'No aplica')], limit=1)
@@ -76,43 +77,42 @@ class Blind(models.Model):
     #WS
     def products_total(self,data_j):  
        
-        data_j = sorted(data_j, key=itemgetter(0))
-   
-        group_data = [ ( key ,sum( x[1] for x in list(group) )  )  for key, group in itertools.groupby(data_j, key=lambda x:x[0]) ]
-        
-        ids = [ id[0] for id in data_j  ]
-        
-    
+        data_j = sorted(data_j,  key=operator.itemgetter(0, 2))
+
+        group_data = [ ( key ,sum( x[1] for x in list(group) )  )  for key, group in itertools.groupby(data_j,key=lambda x:( x[0], x[2] ) ) ]
+        ids = [ id[0] for id in data_j  ] 
+        ids = list(set(ids))
         search = self.env['intelli.blind'].search([('id','in',ids)])
-        
-         
         data = {}
         data['total_card'] = {'iva':0,'total':9,'delivery':0,'subtotal':0}
         data['products'] = []
         data['extra_products'] = []   
         data['video'] = self.env['ir.config_parameter'].sudo().get_param('intelli.url_video')
         data['policy'] = self.env['ir.config_parameter'].sudo().get_param('intelli.description')
-  
         options_avaible =   [x.upper() for x in ['Control 1 Canal','Control 5 Canales','Cargador','Interfase'] ]
         count_products = 0
         for product in group_data:
-            value = search.filtered(lambda product_l: product_l.id == product[0] and product[1] > 0)
-            if len(value) == 1:
-                    key  ='extra_products' if value.name.upper() in options_avaible and value.style.name == 'Electrónica' else 'products'
-                    
-                    total_product =  ( (value.with_w*value.heigth_h*value.price_size) + value.price ) *product[1]
+            id = product[0][1]
+            id_product =  product[0][0]
+            depa_area = self.env['intelli.department.area'].search([('id','=',id)])
+            if depa_area:
+                product_r = depa_area.products_ids.filtered(lambda x: x.id == id_product) 
+                if product_r :  
+                    key  ='extra_products' if product_r.name.upper() in options_avaible and product_r.style.name == 'Electrónica' else 'products'
+                    adjust = (product_r.with_w*product_r.heigth_h*product_r.price_size) if key != 'extra_products' else 0 
+                    total_product =  ( adjust + product_r.price ) * product[1]
                     count_products += product[1] if key == "products" else 0
                     iva = total_product * 0.16
                     data[key].append({
-                         'product_id': value.id,
-                         'product':value.name,
-                         'price':'{0:,.2f}'.format(total_product+iva),
-                         'actuation':value.actuation.name,
-                         'quantity':product[1]                  
+                        'product_id': product_r.id,
+                        'product':product_r.name,
+                        'price':'{0:,.2f}'.format(total_product+iva),
+                        'actuation':product_r.actuation.name,
+                        'quantity':product[1]                  
                     })     
                     data['total_card']['subtotal'] += total_product
                     data['total_card']['iva'] += iva
-                    #products.append( (value,product[1])  )
+                   
         subtotal = data['total_card']['subtotal']
         iva = data['total_card']['iva']
         total = subtotal + iva
@@ -137,55 +137,7 @@ class Blind(models.Model):
                     }
                     ]
   
-    """
-    #WS
-    def products_total(self,data_j):  
-        #data_j = sorted(data_j, key=itemgetter(1))
-        data_j = data_j
-        ids = [ id[0] for id in data_j  ]
-        
-    
-        search = self.env['intelli.blind'].search([('id','in',ids)])
-        
-        for product in data_j:
-            value = search.filtered(lambda product_l: product_l.id == product[0])
-            #val
-            if len(value) == 1:
-                product.append( value  )
-
-
-        data = {}
-        data['total_card'] = {'iva':0,'total':9,'delivery':0,'subtotal':0}
-        data['products'] = []
-        data['extra_products'] = []
-
-
-        for product in data_j:           
-              for prod in range(product[1]):  
-                    total_product =  (product[2].with_w*product[2].heigth_h*product[2].price_size) + product[2].price 
-                    iva = total_product * 0.16
-                    data['products'].append({
-                         'product_id': product[2].id,
-                         'product':product[2].name,
-                         'price':'{0:.2f}'.format(total_product+iva),
-                         'actuation':product[2].actuation.name
-                                       
-                    })     
-                    data['total_card']['subtotal'] += total_product
-                    data['total_card']['iva'] += iva
-
-        data['total_card']['total'] =  '{0:.2f}'.format( data['total_card']['subtotal'] +   data['total_card']['iva'] )       
-        data['total_card']['subtotal'] =  '{0:.2f}'.format( data['total_card']['subtotal'] )
-        data['total_card']['iva'] =  '{0:.2f}'.format( data['total_card']['iva'] )
-        return [  
-                    {
-                        
-                            'success': 200 if search else 204,
-                            'data': data  if search else "null"
-                    }
-                    ]
-   """
-
+  
           
 
    
