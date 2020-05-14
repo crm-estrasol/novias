@@ -95,23 +95,27 @@ class Blind(models.Model):
             id = product[0][1]
             id_product =  product[0][0]
             depa_area = self.env['intelli.department.area'].search([('id','=',id)])
-            if depa_area:
-                product_r = depa_area.products_ids.filtered(lambda x: x.id == id_product) 
-                if product_r :  
-                    key  ='extra_products' if product_r.name.upper() in options_avaible and product_r.style.name == 'Electrónica' else 'products'
-                    adjust = (product_r.with_w*product_r.heigth_h*product_r.price_size) if key != 'extra_products' else 0 
-                    total_product =  ( adjust + product_r.price ) * product[1]
-                    count_products += product[1] if key == "products" else 0
-                    iva = total_product * 0.16
-                    data[key].append({
-                        'product_id': product_r.id,
-                        'product':product_r.name,
-                        'price':'{0:,.2f}'.format(total_product+iva),
-                        'actuation':product_r.actuation.name,
-                        'quantity':product[1]                  
-                    })     
-                    data['total_card']['subtotal'] += total_product
-                    data['total_card']['iva'] += iva
+            if id != -1:
+                depa_area = self.env['intelli.department.area'].search([('id','=',id)])
+                product_r = depa_area.products_ids.filtered(lambda x: x.id == id_product)
+            else:
+                product_r = self.env['intelli.blind'].search([('id','=', id_product )])
+
+            if product_r :  
+                key  ='extra_products' if product_r.name.upper() in options_avaible and product_r.style.name == 'Electrónica' else 'products'
+                adjust = (product_r.with_w*product_r.heigth_h*product_r.price_size) if key != 'extra_products' else 0 
+                total_product =  ( adjust + product_r.price ) * product[1]
+                count_products += product[1] if key == "products" else 0
+                iva = total_product * 0.16
+                data[key].append({
+                    'product_id': product_r.id,
+                    'product':product_r.name,
+                     'price':'{0:,.2f}'.format(total_product+iva),
+                     'actuation':product_r.actuation.name,
+                      'quantity':product[1]                  
+                })     
+                 data['total_card']['subtotal'] += total_product
+                data['total_card']['iva'] += iva
                    
         subtotal = data['total_card']['subtotal']
         iva = data['total_card']['iva']
