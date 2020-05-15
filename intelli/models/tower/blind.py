@@ -72,7 +72,23 @@ class Blind(models.Model):
            
        }
        return view 
-   
+    def button_duplicate(self):
+        self.copy({'name':self.name+"(copia)"})
+        view_id = self.env.ref('intelli.tower_view_form_associate').id
+        view = {
+                'name': ('Productos'),
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'intelli.tower',
+                'views':  [(view_id,'form')],
+                'type': 'ir.actions.act_window',
+                'target': 'new',
+                'context':dict(create = False ),
+                'res_id': self.parent_tower.id,
+                
+            }
+        return view 
+
     def button_duplicate_no_open(self):
         self.copy( {'name':self.name+"(copia)" })
     
