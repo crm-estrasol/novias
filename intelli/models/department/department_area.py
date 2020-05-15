@@ -40,13 +40,11 @@ class Departent_Area(models.Model):
     style = fields.Many2one('intelli.style', string='Estilo')
     products_ids = fields.Many2many(comodel_name='intelli.blind', required=True,relation='table_many_products', column1='blind_id', column2='', domain="['&',('parent_tower', '=', parent_tower),('style', '=', style)]")
     flag = fields.Char("Productos", required=True)
-    _sql_constraints = [
-        ('name_ventana', 'unique ( parent_department, name)', 'Ya existe el registo con  ventana , no se pueden repetir para este departamento. '),
-    ]
+    
     @api.constrains('name')
     def _check_name(self):
-        if len( self.env['intelli.department.area'].search(['&',('name','=',self.name),'&',('parent_department','=',self.parent_department),('area','=',self.area)]) ) > 1:
-            raise ValidationError(_('Ya existe el contrato en otra torre.'))
+        if len( self.env['intelli.department.area'].search(['&',('name','=',self.name),'&',('parent_department','=',self.parent_department),('area','=',self.area.id)]) ) > 1:
+            raise ValidationError(_('Ya existe el registo con  ventana , no se pueden repetir para este departamento.'))
     def button_duplicate(self):
         self.copy()
         view_id = self.env.ref('intelli.department_view_form_associate').id
