@@ -43,7 +43,7 @@ class Departent_Area(models.Model):
     
     @api.constrains('name')
     def _check_name(self):
-        if len( self.env['intelli.department.area'].search(['&',('name','=',self.name),'&',('parent_department','=',self.parent_department.id),('area','=',self.area.id)]) ) > :
+        if len( self.env['intelli.department.area'].search(['&',('name','=',self.name),'&',('parent_department','=',self.parent_department.id),('area','=',self.area.id)]) ) > 1 :
             raise ValidationError(_('Ya existe el registo con  ventana , no se pueden repetir para este departamento.'))
     def button_duplicate(self):
         self.copy({'name':self.name+"(copia)",'flag':"1" if self.products_ids else False })
