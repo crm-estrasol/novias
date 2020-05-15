@@ -118,6 +118,7 @@
                                           <field name="cloth" />                
                                           <field name="actuation" />
                                           <field name="electronic" />
+                                          <button name="button_duplicate_no_open" string="Duplicar" type="object"/>
                                          
                                       </tree>                                      
                                    </field> 
@@ -210,6 +211,7 @@
                                           <field name="cloth" />                
                                           <field name="actuation" />
                                           <field name="electronic" />
+                                          <button name="button_duplicate_no_open" string="Duplicar" type="object"/>
                                       </tree>                                      
                                    </field> 
                                 
