@@ -146,6 +146,8 @@ class Tower(models.Model):
                     'currency_id' : search['currency_id'].name
                 
                     }
+            ids =  [id.id for id in search['departments'] ]       
+            depas = self.env['intelli.department'].search([('id','in',ids)], order="name desc")
             data['departments'] = [
                         {
                             'id':department['id'],           
@@ -155,7 +157,7 @@ class Tower(models.Model):
                             'department_areas':len( department['department_areas']) if department['department_areas'] else "0",
                             
 
-                        } for department in  search['departments']
+                        } for department in  depas
 
                         ]
      
