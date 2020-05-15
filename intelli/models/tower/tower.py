@@ -166,3 +166,4 @@ class Tower(models.Model):
                             'success': 200 if search else 204,
                             'data':data  if search else "null"
                     }
+        ]
