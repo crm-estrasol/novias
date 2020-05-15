@@ -147,7 +147,7 @@ class Tower(models.Model):
                 
                     }
             ids =  [id.id for id in search['departments'] ]       
-            depas = self.env['intelli.department'].search([('id','in',ids)], order="name desc")
+            depas = self.env['intelli.department'].search([('id','in',ids)], order="name asc")
             data['departments'] = [
                         {
                             'id':department['id'],           
