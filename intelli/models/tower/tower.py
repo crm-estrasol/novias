@@ -3,7 +3,7 @@ import logging
 _logger = logging.getLogger(__name__)
 from odoo.tools.misc import clean_context
 from odoo.exceptions import UserError
-import sys
+from odoo.exceptions import ValidationError
 
 class Tower(models.Model):
     _name= 'intelli.tower'
@@ -44,7 +44,10 @@ class Tower(models.Model):
         ('unique_name', 'unique (name)', 'EL nombre no debe repetirse!')
        
     ]
- 
+    @api.constrains('password')
+    def _check_passwrod(self):
+        if self.env['intelli.tower'].search([('password','=',self.password)]):
+            raise ValidationError(_('Ya existe el contrato en otra torre.'))
     #Boton
     def button_blinds(self):
        view_id = self.env.ref('intelli.tower_view_form_associate').id
@@ -163,11 +166,3 @@ class Tower(models.Model):
                             'success': 200 if search else 204,
                             'data':data  if search else "null"
                     }
-                    ]
-class TowerAsjust(models.Model):
-     _inherit = "intelli.tower"
-     _sql_constraints = [
-        
-        ('unique_password', 'unique (password)', 'El conbtrato no debe repetirse!')
-       
-    ]
