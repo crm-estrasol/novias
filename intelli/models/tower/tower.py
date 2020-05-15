@@ -167,8 +167,7 @@ class Tower(models.Model):
 class TowerAsjust(models.Model):
      _inherit = "intelli.tower"
      _sql_constraints = [
-         ('unique_name', 'unique (name)', 'EL nombre no debe repetirse!')
-       ,
+        
         ('unique_password', 'unique (password)', 'El conbtrato no debe repetirse!')
        
     ]
