@@ -41,7 +41,7 @@ class Departent_Area(models.Model):
     products_ids = fields.Many2many(comodel_name='intelli.blind', required=True,relation='table_many_products', column1='blind_id', column2='', domain="['&',('parent_tower', '=', parent_tower),('style', '=', style)]")
     flag = fields.Char("Productos", required=True)
     _sql_constraints = [
-        ('name_ventana', 'unique ( parent_tower, name, style)', 'No se puede repetir ventana con el mismo estilo. '),
+        ('name_ventana', 'unique ( parent_department, name)', 'Ya existe el registo con  ventana , no se pueden repetir para este departamento. '),
     ]
     def button_duplicate(self):
         self.copy()
