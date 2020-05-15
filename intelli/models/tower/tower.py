@@ -4,6 +4,7 @@ _logger = logging.getLogger(__name__)
 from odoo.tools.misc import clean_context
 from odoo.exceptions import UserError
 import sys
+
 class Tower(models.Model):
     _name= 'intelli.tower'
     _inherit =  ['mail.thread', 'mail.activity.mixin']
@@ -40,8 +41,7 @@ class Tower(models.Model):
     departments = fields.One2many (comodel_name='intelli.department',inverse_name='tower',string="Departamentos")
     styles_available =  fields.Many2many(comodel_name='intelli.style', relation='table_search_styles', column1='style_id', column2='tower_id')
     _sql_constraints = [
-        ('unique_name', 'unique (name)', 'EL nombre no debe repetirse!'),
-         ('unique_ctr', 'unique (password)', 'EL contrato no debe repetirse!')
+        ('unique_name', 'unique (name)', 'EL nombre no debe repetirse!')
        
     ]
  
@@ -164,3 +164,11 @@ class Tower(models.Model):
                             'data':data  if search else "null"
                     }
                     ]
+class TowerAsjust(models.Model):
+     _inherit = "intelli.tower"
+     _sql_constraints = [
+         ('unique_name', 'unique (name)', 'EL nombre no debe repetirse!')
+       ,
+        ('unique_password', 'unique (password)', 'El conbtrato no debe repetirse!')
+       
+    ]
