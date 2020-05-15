@@ -43,6 +43,10 @@ class Departent_Area(models.Model):
     _sql_constraints = [
         ('name_ventana', 'unique ( parent_department, name)', 'Ya existe el registo con  ventana , no se pueden repetir para este departamento. '),
     ]
+    @api.constrains('name')
+    def _check_name(self):
+        if len( self.env['intelli.department.area'].search(['&',('name','=',self.name),'&',('parent_department','=',self.parent_department),('area','=',self.area)]) ) > 1:
+            raise ValidationError(_('Ya existe el contrato en otra torre.'))
     def button_duplicate(self):
         self.copy()
         view_id = self.env.ref('intelli.department_view_form_associate').id
