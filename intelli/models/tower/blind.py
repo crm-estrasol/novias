@@ -77,7 +77,9 @@ class Blind(models.Model):
         for image in self.images:
             new_image = image.copy({'parent_blind':False})
             blind_images.append( (4, new_image.id) )
+        #aaaa
         self.copy({'name':self.name+"(copia)",'images':blind_images})
+        
         view_id = self.env.ref('intelli.tower_view_form_associate').id
         view = {
                 'name': ('Productos'),
