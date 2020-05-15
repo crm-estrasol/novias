@@ -46,7 +46,7 @@ class Tower(models.Model):
     ]
     @api.constrains('password')
     def _check_passwrod(self):
-        if self.env['intelli.tower'].search([('password','=',self.password)]):
+        if len(self.env['intelli.tower'].search([('password','=',self.password)])) > 1:
             raise ValidationError(_('Ya existe el contrato en otra torre.'))
     #Boton
     def button_blinds(self):
