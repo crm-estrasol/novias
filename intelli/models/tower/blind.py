@@ -56,7 +56,7 @@ class Blind(models.Model):
         if sys.getsizeof(self.blind)  > 1*1000*1000:      
             raise UserError(_("Exediste el tamaño permitido (1mb/10000) para la imagen ."))
     
-    #Boton
+
     def show_blind(self):
        view_id = self.env.ref('intelli.blind_view_form').id
        context = self.env.context
@@ -73,6 +73,11 @@ class Blind(models.Model):
        }
        return view 
     def button_duplicate(self):
+         blind_images = []
+         for image in self.images:
+                new_image = image.copy({'parent_blind':False,'images':blind_images })
+                blind_images.append( (4, new_image.id) )
+
         self.copy({'name':self.name+"(copia)"})
         view_id = self.env.ref('intelli.tower_view_form_associate').id
         view = {
@@ -90,7 +95,13 @@ class Blind(models.Model):
         return view 
 
     def button_duplicate_no_open(self):
-        self.copy( {'name':self.name+"(copia)" })
+        blind_images = []
+        for image in self.images:
+                new_image = image.copy({'parent_blind':False})
+                blind_images.append( (4, new_image.id) )
+       
+       
+        self.copy( {'name':self.name+"(copia)",'images':blind_images  })
     
     #WS
     def products_total(self,data_j):  
