@@ -103,7 +103,7 @@
                                     <field name="control" />
                                      <field name="parent_available" invisible="1" />
                                     <field name="style"  options="{'no_create_edit': True ,'no_open': True}"  domain="[('id', 'in', parent_available)]" />  
-                                     <field name="flag"   />
+                                     <field name="flag"  invisible="1" />
                             </group>
                          
                     </div>
