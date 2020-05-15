@@ -82,7 +82,7 @@ class Tower(models.Model):
         for depa in self.departments:
             new_depa = depa.copy()
             new_deps.append((4,new_depa.id))
-        res = super(Tower, self).copy({'name':self.name + "(copia)"},{'password':self.name + "(copia)"})    
+        res = super(Tower, self).copy({'name':self.name + "(copia)",'password':self.name + "(copia)"})    
         if self.blinds:
             res.write({'blinds':news_blind}  )
         if self.departments:
