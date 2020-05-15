@@ -4,7 +4,7 @@ _logger = logging.getLogger(__name__)
 from odoo.tools.misc import clean_context
 from odoo.exceptions import UserError
 from odoo.exceptions import ValidationError
-
+import sys
 class Tower(models.Model):
     _name= 'intelli.tower'
     _inherit =  ['mail.thread', 'mail.activity.mixin']
