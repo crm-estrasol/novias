@@ -78,15 +78,15 @@ class Tower(models.Model):
             if blind.images:
                 new_blind.write({'images':blind_images}  )
             news_blind.append( (4, new_blind.id) )
-        new_deps = []
-        for depa in self.departments:
-            new_depa = depa.copy()
-            new_deps.append((4,new_depa.id))
+        #new_deps = []
+        #for depa in self.departments:
+        #    new_depa = depa.copy()
+        #    new_deps.append((4,new_depa.id))
         res = super(Tower, self).copy({'name':self.name + "(copia)",'password':self.name + "(copia"})    
         if self.blinds:
             res.write({'blinds':news_blind}  )
-        if self.departments:
-            res.write({'departments':new_deps}  )
+        #if self.departments:
+        #    res.write({'departments':new_deps}  )
         return res
     def button_duplicate(self):
        self.copy()
