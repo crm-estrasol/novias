@@ -125,6 +125,7 @@ class Blind(models.Model):
             id = product[0][1]
             id_product =  product[0][0]
             #depa_area = self.env['intelli.department.area'].search([('id','=',id)])
+            depa_area = False
             if id != -1:
                 depa_area = self.env['intelli.department.area'].search([('id','=',id)])
                 product_r = depa_area.products_ids.filtered(lambda x: x.id == id_product)
@@ -141,6 +142,7 @@ class Blind(models.Model):
                 data[key].append({
                     'product_id': product_r.id,
                     'product':product_r.name,
+                    'window': depa_area.name if  depa_area else "",
                      'price':'{0:,.2f}'.format(total_product+iva),
                      'actuation':product_r.actuation.name,
                       'quantity':product[1]                  
