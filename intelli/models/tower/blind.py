@@ -133,7 +133,7 @@ class Blind(models.Model):
                 product_r = self.env['intelli.blind'].search([('id','=', id_product )])
 
             if product_r :  
-                key  ='extra_products' if product_r.name.upper() in options_avaible and product_r.style.name == 'Electrónica' else 'products'
+                key  ='extra_products' if product_r.electronic.name.upper() in options_avaible and product_r.style.name == 'Electrónica' else 'products'
                 adjust = (depa_area.with_w*depa_area.heigth_h*product_r.price_size) if key != 'extra_products' else 0 
                 total_product =  ( adjust + product_r.price ) * product[1]
                 
@@ -143,7 +143,7 @@ class Blind(models.Model):
                     'product_id': product_r.id,
                     'product':product_r.name,
                     'window': depa_area.name if  depa_area else "",
-                     'price':'{0:,.2f}'.format(total_product+iva),
+                     'price':'{0:,.2f}'.format(total_product),
                      'actuation':product_r.actuation.name,
                       'quantity':product[1]                  
                 })     
