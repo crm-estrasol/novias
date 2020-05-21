@@ -52,7 +52,7 @@ class Department(models.Model):
         
         news_area = []
         for area in self.department_areas:    
-            new_area = area.copy({'parent_department':res.id,'parent_tower',res.tower.id})
+            new_area = area.copy({'parent_department':res.id,'parent_tower':res.tower.id})
             news_area.append( (4, new_area.id) )
         if self.department_areas:
             res.write({'department_areas':news_area}  )
