@@ -106,7 +106,7 @@ class Department(models.Model):
 
     
     @api.depends( 'department_areas')
-    def _compute_amount(self):
+    def _compute_areas(self):
         for item in self:
             item.count_areas = len(item.department_areas)
 
