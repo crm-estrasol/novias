@@ -39,7 +39,7 @@
                 <field name="id" invisible="1" />
                 <field name="tower" />
                 <field name="name"/>
-                <button name="button_areas" string="Areas" type="object" />
+                  <button name="button_open" string="Abrir" type="object"/>
                 <field name="map" widget='image'  />
                 <field name="instalation"/>
                  <button name="button_duplicate" string="Duplicar" type="object"/>
@@ -108,9 +108,11 @@
             <form duplicate="0">
               <sheet>
                 <div class="oe_button_box" name="button_box">
+                   <button name="button_open" string="Abrir" type="object" class="oe_stat_button" style="text-align:center; font-weight:bold;" string="Areas"/>
                   <button name="toggle_active" type="object" class="oe_stat_button" style="text-align:center; font-weight:bold;" string="Activo">
                     <field name="active" string="Archivado" widget="boolean_toggle" style=" text-decoration: none;  pointer-events: none;"/>
                   </button>
+
                 </div>
                    <div class="row">
                      
@@ -123,7 +125,7 @@
                                 <field name="instalation"/>
                               
                                  <field name="map" widget='image' style="width:300px;" />
-                                 <button name="button_open" string="Abrir" type="object"/>
+                                
                                  
                           </group>
                         </div>
@@ -131,7 +133,7 @@
                    </div> 
                     <div class="row" style="overflow-x: scroll;">
                      <div class="col-md-12">
-                      <notebook>
+                      <notebook invisible="1">
                         <page string="Areas" >
                                  
                                    <field name="department_areas"  widget="open_one2many_line"     attrs="{'invisible': [('tower', '=', False)]}"   context="{'default_parent_department': id}"  >
