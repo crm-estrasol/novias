@@ -39,7 +39,7 @@
                 <field name="id" invisible="1" />
                 <field name="tower" />
                 <field name="name"/>
-                  <button name="button_open" string="Abrir" type="object"/>
+                  <button name="button_open" string="Areas" type="object"/>
                 <field name="map" widget='image'  />
                 <field name="instalation"/>
                  <button name="button_duplicate" string="Duplicar" type="object"/>
@@ -108,7 +108,7 @@
             <form duplicate="0">
               <sheet>
                 <div class="oe_button_box" name="button_box">
-                   <button name="button_open" string="Abrir" type="object" class="oe_stat_button" style="text-align:center; font-weight:bold;" string="Areas"/>
+                   <button name="button_open" type="object" class="oe_stat_button" style="text-align:center; font-weight:bold;" string="Areas"/>
                   <button name="toggle_active" type="object" class="oe_stat_button" style="text-align:center; font-weight:bold;" string="Activo">
                     <field name="active" string="Archivado" widget="boolean_toggle" style=" text-decoration: none;  pointer-events: none;"/>
                   </button>
