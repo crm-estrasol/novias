@@ -72,7 +72,7 @@ class Department(models.Model):
             'views':  [(view_id,'tree')],
             'target': 'current',
             'type': 'ir.actions.act_window',
-            'context':dict(create = True, default_parent_department = self.id ),
+            'context':dict(create = True),
             'domain': [('parent_department','=',self.id)]
             
             
