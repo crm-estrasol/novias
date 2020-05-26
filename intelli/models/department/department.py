@@ -20,6 +20,7 @@ class Department(models.Model):
     map = fields.Image("Plano",track_visibility=True)
     instalation = fields.Many2one('intelli.instalation', string='Instalación', required=True, default=_get_instalation)
     tower = fields.Many2one('intelli.tower', string='Torre', required=True,ondelete='cascade')
+    count_areas = fields.Integer("Areas",compute='_compute_areas')
     department_areas = fields.One2many (comodel_name='intelli.department.area',inverse_name='parent_department',string="Areas")
     #_sql_constraints = [
     #    ('unique_name_', 'unique (name)', 'EL nombre no debe repetirse!')
@@ -102,5 +103,12 @@ class Department(models.Model):
     @api.onchange('tower')
     def on_tower(self):
        self.department_areas = False 
-       
+
+    
+     @api.depends(
+        'department_areas'
+     )
+    def _compute_amount(self):
+        for item in self:
+            item.count_areas = len(item.department_areas)
 
