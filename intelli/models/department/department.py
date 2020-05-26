@@ -66,13 +66,13 @@ class Department(models.Model):
         view_id = self.env.ref('intelli.department_area_view_tree').id
         view = {
             'name': ('Areas'),
-            'view_type': 'form',
-            'view_mode': 'form',
+            'view_type': 'tree',
+            'view_mode': 'tree',
             'res_model': 'intelli.department',
             'views':  [(view_id,'tree')],
             'type': 'ir.actions.act_window',
             'context':dict(create = True ),
-            'res_id': self.id,
+            
             
         }
         return view 
