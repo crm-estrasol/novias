@@ -68,7 +68,7 @@ class Department(models.Model):
             'name': ('Areas'),
             'view_type': 'tree',
             'view_mode': 'tree',
-            'res_model': 'intelli.department',
+            'res_model': 'intelli.department.area',
             'views':  [(view_id,'tree')],
             'type': 'ir.actions.act_window',
             'context':dict(create = True ),
