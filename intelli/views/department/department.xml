@@ -108,7 +108,7 @@
             <form duplicate="0">
               <sheet>
                 <div class="oe_button_box" name="button_box">
-                  <button name="button_open" type="object" class="oe_stat_button" style="text-align:center; font-weight:bold;" string="Areas">
+                  <button name="button_open" type="object" class="oe_stat_button" style="text-align:center; font-weight:bold;"  icon="fa-window-maximize" string="Areas">
                      <field name="count_areas"  style=" text-decoration: none;  pointer-events: none;"/>
                   </button>
                   <button name="toggle_active" type="object" class="oe_stat_button" style="text-align:center; font-weight:bold;" string="Activo">
@@ -133,8 +133,7 @@
                         </div>
                        
                    </div> 
-                    <div class="row" style="overflow-x: scroll;">
-                     <div class="col-md-12">
+                    
                       <notebook invisible="1">
                         <page string="Areas" >
                                  
@@ -159,8 +158,7 @@
                         </page>  
                         
                         </notebook>
-                     </div>
-                   </div>
+                    
          
              
               </sheet>
