@@ -70,10 +70,10 @@ class Department(models.Model):
             'view_type': 'form',
              'view_mode': 'tree,form',
             'res_model': 'intelli.department.area',
-            'views':  [(view_id,'tree'),(view_form,'tree')],
+            'views':  [(view_id,'tree'),(view_form,'form')],
             'target': 'current',
             'type': 'ir.actions.act_window',
-            'context':dict(create = True ),
+            'context':dict(create = True, default_parent_department = self.id ),
             'domain': [('parent_department','=',self.id)]
             
             
