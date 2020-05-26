@@ -62,6 +62,20 @@ class Department(models.Model):
     
     def button_duplicate(self):
        self.copy()
+    def button_open(self):
+        view_id = self.env.ref('intelli.department_area_view_tree').id
+        view = {
+            'name': ('Areas'),
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'intelli.department',
+            'views':  [(view_id,'tree')],
+            'type': 'ir.actions.act_window',
+            'context':dict(create = True ),
+            'res_id': self.id,
+            
+        }
+        return view 
 
     """   
      def write(self,vals):

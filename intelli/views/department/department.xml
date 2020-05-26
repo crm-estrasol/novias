@@ -123,6 +123,8 @@
                                 <field name="instalation"/>
                               
                                  <field name="map" widget='image' style="width:300px;" />
+                                 <button name="button_open" string="Abrir" type="object"/>
+                                 
                           </group>
                         </div>
                        
