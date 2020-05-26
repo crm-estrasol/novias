@@ -64,12 +64,13 @@ class Department(models.Model):
        self.copy()
     def button_open(self):
         view_id = self.env.ref('intelli.department_area_view_tree').id
+        view_form = self.env.ref('intelli.department_area_view_form').id
         view = {
             'name': ('Areas'),
             'view_type': 'form',
              'view_mode': 'tree,form',
             'res_model': 'intelli.department.area',
-            'views':  [(view_id,'tree')],
+            'views':  [(view_id,'tree'),(view_id,'form')],
             'target': 'current',
             'type': 'ir.actions.act_window',
             'context':dict(create = True),
