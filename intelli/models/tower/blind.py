@@ -228,7 +228,7 @@ class Blind(models.Model):
                     'electronic':product_r.electronic.name,
                 }
                 if id != -1:
-                    item['long_description'] = 'Ventana=({}) Tela=({})  Caída=({}) Control=({}).' .format(total_product['name'],product_r.cloth.name,total_product['fall'],total_product['control'])
+                    item['long_description'] = 'Ventana=({}) Tela=({})  Caída=({}) Control=({}).' .format(depa_information['name'],product_r.cloth.name,depa_information['fall'],depa_information['control'])
                     item['department_information'] = depa_information
                 data[key].append(item)  
                 
