@@ -240,8 +240,8 @@ class Blind(models.Model):
               
                
         
-
-        
+        data['products'] =  sorted( data['products'], key=lambda x:( x['product'],x['department_information']['name'],x['department_information']['fall'],x['department_information']['control']  ) )
+         
         return [  
                     {
                         
