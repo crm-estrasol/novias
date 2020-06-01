@@ -173,7 +173,81 @@ class Blind(models.Model):
                             'data': data  if search else "null"
                     }
                     ]
-  
+    #WS2
+    def products_information(self,data_j):  
+       
+        data_j = sorted(data_j,  key=operator.itemgetter(0, 2))
+
+        group_data = [ ( key ,sum( x[1] for x in list(group) )  )  for key, group in itertools.groupby(data_j,key=lambda x:( x[0], x[2] ) ) ]
+        ids = [ id[0] for id in data_j  ] 
+        ids = list(set(ids))
+        search = self.env['intelli.blind'].search([('id','in',ids)])
+        data = {}
+        data['products'] = []
+        data['extra_products'] = []   
+        options_avaible =   [x.upper() for x in ['Control 1 Canal','Control 5 Canales','Cargador','Interfase'] ]
+        for product in group_data:
+            id = product[0][1]
+            id_product =  product[0][0]
+            depa_area = False
+            if id != -1:
+                depa_area = self.env['intelli.department.area'].search([('id','=',id)])
+                product_r = depa_area.products_ids.filtered(lambda x: x.id == id_product)
+                depa_information = {
+                
+                                'name':depa_area.name,
+                                'with_w': depa_area,
+                                'heigth_h':depa_area,
+                                'area':depa_area.name,
+                                'fall':depa_area.name,
+                                'control':depa_area.name,            
+                }
+
+            else:
+                product_r = self.env['intelli.blind'].search([('id','=', id_product )])
+
+            if product_r :  
+                key  ='extra_products' if product_r.electronic.name.upper() in options_avaible and product_r.style.name == 'Electrónica' else 'products'
+                adjust = (depa_area.with_w*depa_area.heigth_h*product_r.price_size) if key != 'extra_products' else 0 
+                total_product =  ( adjust + product_r.price ) * product[1]   
+                item = {
+                    'product_id': product_r.id,
+                    'product':product_r.name,
+                    'window': depa_area.name if  depa_area else "",
+                    'price':'{0:,.2f}'.format(total_product),
+                    'actuation':product_r.actuation.name,
+                    'quantity':product[1],
+                    'code':product_r.code,
+                    'style':product_r.style.name,
+                    'with_w':product_r.with_w,
+                    'heigth_h':product_r.heigth_h,
+                    'm2_max':product_r.m2_max,
+                    #'price_size':product_r.price_size,
+                    'cloth':product_r.cloth.name,
+                    #'blind':product_r.blind,
+                    'electronic':product_r.electronic.name,
+                }
+                if id != -1:
+                    item['department_information'] = depa_information
+                data[key].append(item)  
+                
+
+           
+             
+             
+           
+              
+               
+        
+
+        
+        return [  
+                    {
+                        
+                            'success': 200 if search else 204,
+                            'data': data  if search else "null"
+                    }
+                    ]
   
           
 
