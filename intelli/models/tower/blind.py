@@ -196,8 +196,8 @@ class Blind(models.Model):
                 depa_information = {
                 
                                 'name':depa_area.name,
-                                'with_w': depa_area,
-                                'heigth_h':depa_area,
+                                'with_w': depa_area.with_w,
+                                'heigth_h':depa_area.heigth_h,
                                 'area':depa_area.name,
                                 'fall':depa_area.name,
                                 'control':depa_area.name,            
@@ -228,10 +228,11 @@ class Blind(models.Model):
                     'electronic':product_r.electronic.name,
                 }
                 if id != -1:
+                    item['long_description'] = 'Ventana=({}) Tela=({})  Caída=({}) Control=({}).' .format(total_product['name'],product_r.cloth.name,total_product['fall'],total_product['control'])
                     item['department_information'] = depa_information
                 data[key].append(item)  
                 
-
+            
            
              
              
