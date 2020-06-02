@@ -217,7 +217,7 @@ class Blind(models.Model):
                                                                                     ),
                                         'street': depa_area.parent_tower.street ,
                                         'street2':  depa_area.parent_tower.street2,
-                                        'location': depa_area.parent_tower.city, 
+                                        'city': depa_area.parent_tower.city, 
                                         'zip': depa_area.parent_tower.zip,
                                         'state': depa_area.parent_tower.state_id.name,
                                         'country': depa_area.parent_tower.country_id.name,           
