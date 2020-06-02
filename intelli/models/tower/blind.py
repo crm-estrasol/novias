@@ -185,6 +185,7 @@ class Blind(models.Model):
         data = {}
         data['products'] = []
         data['extra_products'] = []   
+        get_tower = 0
         options_avaible =   [x.upper() for x in ['Control 1 Canal','Control 5 Canales','Cargador','Interfase'] ]
         for product in group_data:
             id = product[0][1]
@@ -202,6 +203,27 @@ class Blind(models.Model):
                                 'fall':depa_area.name,
                                 'control':depa_area.name,            
                 }
+                if get_tower == 0:
+                    get_tower = 1
+                    data['tower'] = {   'tower_name':depa_area.parent_tower.name,
+                                        'agent':depa_area.parent_tower.agent.name,
+                                        'email_agente':depa_area.parent_tower.agent.email,
+                                        'full_addres': ' {} {} {}, {}, {}, {} '.format(depa_area.parent_tower.street, 
+                                                                                    depa_area.parent_tower.street2,
+                                                                                    depa_area.parent_tower.location,
+                                                                                    depa_area.parent_tower.zip,
+                                                                                    depa_area.parent_tower.state_id.name,
+                                                                                    depa_area.parent_tower.country_id.name,
+                                                                                    ),
+                                        'street': depa_area.parent_tower.street ,
+                                        'street2':  depa_area.parent_tower.street2,
+                                        'location': depa_area.parent_tower.location, 
+                                        'zip': depa_area.parent_tower.zip,
+                                        'state': depa_area.parent_tower.state_id.name,
+                                        'country': depa_area.parent_tower.country_id.name,           
+                    
+                                 }
+                
 
             else:
                 product_r = self.env['intelli.blind'].search([('id','=', id_product )])
