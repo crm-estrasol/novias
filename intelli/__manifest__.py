@@ -35,7 +35,7 @@
                    'views/settings/instalation.xml',
                    'views/settings/pdf.xml',
                     'views/towers/blind.xml', 
-                     'views/towers/blind_admon.xml',         
+                     #'views/towers/blind_admon.xml',         
                     'views/towers/tower.xml',
                       'views/department/department.xml', 
                       'views/department/department_area.xml',          
