@@ -27,6 +27,7 @@
      <menuitem id="tower_tower" name="Torres" parent="intelli_menu_tower" action="action_intelli_tower"/>
      
      <menuitem id="blinds_tower" name="Productos" parent="intelli_menu_tower" action="action_intelli_blind" groups="intelli.group_intelli_super"/>
+     <menuitem id="blinds_tower" name="Productos" parent="intelli_menu_tower" action="action_intelli_blind" groups="intelli.group_intelli_admon"/>
     
      <!--  Sub-Sub Menus Depas -->
       <menuitem id="tower_department" name="Departamentos" parent="intelli_menu_department" action="action_intelli_department"/>
