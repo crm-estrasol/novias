@@ -8,7 +8,7 @@ access_intelli_fall,intelli.fall,model_intelli_fall,intelli.group_intelli_admon,
 access_intelli_instalation,intelli.instalation,model_intelli_instalation,intelli.group_intelli_admon,1,0,0,0
 access_intelli_style,intelli.style,model_intelli_style,intelli.group_intelli_admon,1,0,0,0
 access_intelli_tower,intelli.tower,model_intelli_tower,intelli.group_intelli_admon,1,0,0,0
-access_intelli_blind,intelli.blind,model_intelli_blind,intelli.group_intelli_admon,1,0,0,0
+access_intelli_blind,intelli.blind,model_intelli_blind,intelli.group_intelli_admon,1,0,1,1
 access_intelli_images,intelli.images,model_intelli_images,intelli.group_intelli_admon,1,0,0,0
 access_intelli_department,intelli.department,model_intelli_department,intelli.group_intelli_admon,1,1,1,1
 access_intelli_department_area,intelli.department_area,model_intelli_department_area,intelli.group_intelli_admon,1,1,1,1
