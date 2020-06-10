@@ -83,7 +83,7 @@
                   <field name="tower_picture" widget='image' class="oe_avatar"  />
                   <field name="agent" />
                 <field name="email_agent" />
-                 <button name="button_duplicate" string="Duplicar" type="object"/>
+                 <button name="button_duplicate" string="Duplicar" type="object" groups="intelli.group_intelli_super"/>
               </tree>
           </field>
       </record>
@@ -118,7 +118,7 @@
                                           <field name="cloth" />                
                                           <field name="actuation" />
                                           <field name="electronic" />
-                                          <button name="button_duplicate" string="Duplicar" type="object"/>
+                                          <button name="button_duplicate" string="Duplicar" type="object" groups="intelli.group_intelli_super"/>
                                          
                                       </tree>                                      
                                    </field> 
@@ -211,7 +211,7 @@
                                           <field name="cloth" />                
                                           <field name="actuation" />
                                           <field name="electronic" />
-                                          <button name="button_duplicate_no_open" string="Duplicar" type="object"/>
+                                          <button name="button_duplicate_no_open" string="Duplicar" type="object" groups="intelli.group_intelli_super"/>
                                       </tree>                                      
                                    </field> 
                                 
